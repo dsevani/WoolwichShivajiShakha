@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "752121514225",
+    "firebase_url": "https://woolwichshivajishakha.firebaseio.com",
+    "project_id": "woolwichshivajishakha",
+    "storage_bucket": "woolwichshivajishakha.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752121514225:android:e0f1ee349fb044dc",
+        "android_client_info": {
+          "package_name": "com.example.woolwichshivajishakha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752121514225-7lk4tlpmaccukniaii43ur97cte0jvit.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.woolwichshivajishakha",
+            "certificate_hash": "9e0f2a94554900bd8c7a5117898f82297d69d2be"
+          }
+        },
+        {
+          "client_id": "752121514225-vpf1teqq61cig3t084vdqkpter7kcqu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU5cg45PSwx3Nsqp2Ri2p-ffECFVP5IDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752121514225-vpf1teqq61cig3t084vdqkpter7kcqu9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
