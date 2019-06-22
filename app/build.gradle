@@ -30,6 +30,7 @@ dependencies {
     //Added libraries
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-database:18.0.0'
-    implementation 'info.hoang8f:fbutton:1.0.5'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation 'com.github.jd-alexander:android-flat-button:v1.1'
+
 }
