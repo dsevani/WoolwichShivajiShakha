@@ -30,7 +30,7 @@ dependencies {
     //Added libraries
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-database:18.0.0'
-    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-    implementation 'com.github.jd-alexander:android-flat-button:v1.1'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
 
 }
+apply plugin: 'com.google.gms.google-services'
