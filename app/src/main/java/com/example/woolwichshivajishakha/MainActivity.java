@@ -1,6 +1,7 @@
 package com.example.woolwichshivajishakha;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialise firebase database
         database = FirebaseAuth.getInstance();
-        //DatabaseReference table_login = database.getReference("Login");
 
         buttonLogin.setOnClickListener(new View.OnClickListener(){
 
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     //Method to check credentials
     private void logIn(){
         String email = edtEmail.getText().toString();
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         mDialog.dismiss();
                         Toast.makeText(MainActivity.this, "Namaste!", Toast.LENGTH_SHORT).show();
+                        loadMainScreen();
                     } else {
                         mDialog.dismiss();
                         Toast.makeText(MainActivity.this, "Login Failed. Please check you have entered the correct details", Toast.LENGTH_SHORT).show();
@@ -74,5 +76,10 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private void loadMainScreen(){
+        Intent intent = new Intent(this, MainScreenActivity.class);
+        startActivity(intent);
     }
 }
