@@ -7,9 +7,14 @@
     android:background="@drawable/bg_login"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_left"
@@ -30,7 +35,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="100dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/hssuk"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toTopOf="parent" />
@@ -70,6 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/bg_button"
             android:text="Login"
             android:textSize="15dp"
@@ -92,6 +98,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/Logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
     </ScrollView>

@@ -68,9 +68,12 @@ public class MainActivity extends AppCompatActivity {
                         mDialog.dismiss();
                         Toast.makeText(MainActivity.this, "Namaste!", Toast.LENGTH_SHORT).show();
                         loadMainScreen();
+                        edtEmail.setText("");
+                        edtPassword.setText("");
                     } else {
                         mDialog.dismiss();
                         Toast.makeText(MainActivity.this, "Login Failed. Please check you have entered the correct details", Toast.LENGTH_SHORT).show();
+                        edtPassword.setText("");
                     }
                 }
             });
