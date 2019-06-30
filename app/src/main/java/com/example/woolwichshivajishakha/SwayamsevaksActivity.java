@@ -16,12 +16,6 @@ public class SwayamsevaksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swayamsevaks);
 
-        //Resets tile to default style
-        //cardTitleSwayamsevaks = (TextView)findViewById(R.id.swayamsevaksCard);
-        //grid = (GridLayout)findViewById(R.id.mainGrid);
-        //final CardView cardView = (CardView)grid.getChildAt(0);
-        //cardView.setCardBackgroundColor(Color.parseColor("#FFFFFF"));
-
 
     }
 }
