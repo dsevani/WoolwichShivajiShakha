@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".SankhyaActivity"
+            android:label="@string/title_activity_test"></activity>
         <activity android:name=".PoliciesActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".KhelActivity" />
         <activity android:name=".EmailActivity" />
         <activity android:name=".CalendarActivity" />
-        <activity android:name=".SankhyaActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SwayamsevaksActivity" />
         <activity android:name=".MainScreenActivity" />

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_addSankhya"
+        android:icon="@drawable/view"
+        android:title="Add" />
+
+    <item
+        android:id="@+id/navigation_viewSankhya"
+        android:icon="@drawable/add"
+        android:title="View/Search" />
+
+    <item
+        android:id="@+id/navigation_monitorSankhya"
+        android:icon="@drawable/monitor"
+        android:title="Monitor" />
+
+</menu>
