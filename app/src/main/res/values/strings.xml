@@ -2,8 +2,12 @@
     <string name="app_name">Woolwich Shivaji Shakha</string>
     <string name="slogan">Woolwich Shivaji Shakha</string>
     <string name="title_activity_sankhya">Sankhya</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_activity_test">test</string>
+    <string name="title_add">Add</string>
+    <string name="title_view">View/Search</string>
+    <string name="title_monitor">Monitor</string>
+    <string name="title_activity_test"></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
