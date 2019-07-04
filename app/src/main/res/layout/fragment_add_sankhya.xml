@@ -17,31 +17,55 @@
         android:layout_marginBottom="50dp"
         android:layout_marginLeft="25dp">
 
-            <LinearLayout
-                android:id="@+id/startFinishLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="2">
-                <TextView
-                    android:id="@+id/startLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:text="Start"
-                    style="@style/fontForLabels"
-                    android:textSize="13sp"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/finishLabel"
-                    android:layout_marginLeft="115dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:text="Finish"
-                    style="@style/fontForLabels"
-                    android:textSize="13sp"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="390dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="110dp"
+            android:background="#474e51" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="390dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="110dp"
+            android:background="#474e51" />
+
+
+        <LinearLayout
+            android:id="@+id/startLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:gravity="left">
+            <TextView
+                android:id="@+id/startLabel"
+                style="@style/fontForLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:text="Start"
+                android:textAlignment="center"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/finishLayout"
+            android:layout_toRightOf="@id/startLayout"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/finishLabel"
+                style="@style/fontForLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="40dp"
+                android:text="Finish"
+                android:textAlignment="center"
+                android:textSize="13sp" />
+        </LinearLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="51dp"
@@ -56,11 +80,12 @@
                 android:layout_weight="0.5"
                 android:textAlignment="center"
                 android:background="@drawable/bg_field"
-                style="@style/fieldOutline"
+                android:inputType="number"
+                android:maxLength="2"
                 android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
-                android:layout_below="@id/startFinishLayout"
+                android:layout_below="@id/startLayout"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -73,7 +98,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -87,7 +116,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -101,7 +134,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -115,7 +152,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -129,7 +170,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -142,7 +187,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -156,7 +205,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -169,7 +222,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -183,7 +240,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -197,7 +258,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -211,7 +276,11 @@
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
         </LinearLayout>
     </RelativeLayout>
     </ScrollView>
