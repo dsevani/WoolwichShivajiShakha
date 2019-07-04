@@ -17,8 +17,8 @@ public class SankhyaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sankhya);
         BottomNavigationView nav_bar = (BottomNavigationView) findViewById(R.id.nav_view);
         nav_bar.setOnNavigationItemSelectedListener(navListener);
-
-
+        Fragment defaultFragment = new AddSankhya();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, defaultFragment).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

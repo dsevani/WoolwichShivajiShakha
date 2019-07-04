@@ -9,14 +9,23 @@
 
     <FrameLayout android:id="@+id/mainFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:layout_above="@id/nav_view"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/bannertitle"
+        android:layout_centerInParent="true"
+        android:layout_alignParentStart="true">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ScrollView>
+    </FrameLayout>
     <LinearLayout
+        android:id="@+id/bannertitle"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="130dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
@@ -42,7 +51,6 @@
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
-    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
