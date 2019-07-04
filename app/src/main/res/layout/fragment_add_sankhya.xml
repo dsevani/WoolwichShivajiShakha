@@ -57,8 +57,7 @@
                 android:textAlignment="center"
                 android:background="@drawable/bg_field"
                 style="@style/fieldOutline"
-                android:hint="?"
-                app:boxStr/>
+                android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_below="@id/startFinishLayout"
