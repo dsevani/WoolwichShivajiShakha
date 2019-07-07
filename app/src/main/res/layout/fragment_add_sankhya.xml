@@ -19,17 +19,23 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="390dp"
+            android:layout_height="465dp"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="28dp"
             android:layout_marginLeft="110dp"
             android:background="#474e51" />
         <View
             android:layout_width="1dp"
-            android:layout_height="390dp"
+            android:layout_height="466dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="28dp"
             android:layout_marginRight="110dp"
             android:background="#474e51" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="455dp"
+            android:background="#474e51" />
 
         <LinearLayout
             android:id="@+id/startLayout"
@@ -281,6 +287,84 @@
                 android:inputType="number"
                 android:maxLength="2"
                 android:hint="?" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="411dp"
+            android:layout_marginBottom="100dp"
+            android:weightSum="3">
+            <EditText
+                android:layout_marginLeft="35dp"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
+            <TextView
+                style="@style/fontForLabels"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Sub Total"
+                android:textStyle="bold"
+                android:layout_weight="2"/>
+            <EditText
+                android:layout_marginRight="35dp"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="471dp"
+            android:layout_marginBottom="100dp"
+            android:weightSum="3"
+            >
+            <EditText
+                android:layout_marginLeft="35dp"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?" />
+            <TextView
+                style="@style/fontForLabels"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Total"
+                android:textStyle="bold"
+                android:layout_weight="2"
+
+                />
+            <EditText
+                android:layout_marginRight="35dp"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:inputType="number"
+                android:maxLength="2"
+                android:hint="?"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="false"/>
         </LinearLayout>
     </RelativeLayout>
     </ScrollView>
