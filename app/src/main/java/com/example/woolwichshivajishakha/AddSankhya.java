@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class AddSankhya extends Fragment {
+    private FrameLayout fragment;
     EditText anyaStart;
     EditText anyaFinish;
     EditText proudhStart;
@@ -38,40 +40,24 @@ public class AddSankhya extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_add_sankhya, container, false);
 
-        v = inflater.inflate(R.layout.fragment_add_sankhya, container, false);
         anyaStart = (EditText) v.findViewById(R.id.edtAnyaStart);
-        anyaStartValue = anyaStart.getText().toString();
         anyaFinish = (EditText) v.findViewById(R.id.edtAnyaFinish);
-        String anyaFinishValue = anyaFinish.getText().toString();
         proudhStart = (EditText) v.findViewById(R.id.edtProudhStart);
-        proudhStartValue = proudhStart.getText().toString();
         proudhFinish = (EditText) v.findViewById(R.id.edtProudhFinish);
-        String proudhFinishValue = proudhFinish.getText().toString();
         yuvaStart = (EditText) v.findViewById(R.id.edtYuvaStart);
-        final String yuvaStartValue = yuvaStart.getText().toString();
         yuvaFinish = (EditText) v.findViewById(R.id.edtYuvaFinish);
-        String yuvaFinishValue = yuvaFinish.getText().toString();
         tarunStart = (EditText) v.findViewById(R.id.edtTarunStart);
-        final String tarunStartValue = tarunStart.getText().toString();
         tarunFinish = (EditText) v.findViewById(R.id.edtTarunFinish);
-        String tarunFinishValue = tarunFinish.getText().toString();
         kishoreStart = (EditText) v.findViewById(R.id.edtKishoreStart);
-        final String kishoreStartValue = kishoreStart.getText().toString();
         kishoreFinish = (EditText) v.findViewById(R.id.edtKishoreFinish);
-        String kishoreFinishValue = kishoreFinish.getText().toString();
         balStart = (EditText) v.findViewById(R.id.edtBalStart);
-        final String balStartValue = balStart.getText().toString();
         balFinish = (EditText) v.findViewById(R.id.edtBalFinish);
-        String balFinishValue = balFinish.getText().toString();
         subStart = (EditText) v.findViewById(R.id.edtSubtotalStart);
-        final String subStartValue = subStart.getText().toString();
         subFinish = (EditText) v.findViewById(R.id.edtSubtotalFinish);
-        String subFinishValue = subFinish.getText().toString();
         totalStart = (TextView) v.findViewById(R.id.txtTotalStart);
         totalFinish = (TextView) v.findViewById(R.id.txtTotalFinish);
-
-
 
         anyaStart.addTextChangedListener(new TextWatcher() {
 
@@ -85,7 +71,7 @@ public class AddSankhya extends Fragment {
 
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                totalStartValue = addNumbers();
+                totalStartValue = addStartNumbers();
                 totalStart.setText(totalStartValue.toString());
             }
 
@@ -96,26 +82,116 @@ public class AddSankhya extends Fragment {
                                           int after) {
                 // TODO Auto-generated method stub
             }
-
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
             }
 
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
-                totalStartValue = addNumbers();
+                totalStartValue = addStartNumbers();
                 totalStart.setText(totalStartValue.toString());
             }
+
+        });
+        yuvaStart.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                totalStartValue = addStartNumbers();
+                totalStart.setText(totalStartValue.toString());
+            }
+
         });
 
+        tarunStart.addTextChangedListener(new TextWatcher() {
 
-// Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_sankhya, container, false);
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                totalStartValue = addStartNumbers();
+                totalStart.setText(totalStartValue.toString());
+            }
+
+        });
+        kishoreStart.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                totalStartValue = addStartNumbers();
+                totalStart.setText(totalStartValue.toString());
+            }
+
+        });
+        balStart.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                totalStartValue = addStartNumbers();
+                totalStart.setText(totalStartValue.toString());
+            }
+
+        });
+        subStart.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+                totalStartValue = addStartNumbers();
+                totalStart.setText(totalStartValue.toString());
+            }
+
+        });
+        return v;
+
 }
 
-    private int addNumbers() {
+    private int addStartNumbers() {
         int number1;
         int number2;
+        int number3;
+        int number4;
+        int number5;
+        int number6;
+        int number7;
+
         if(anyaStart.getText().toString() != "" && anyaStart.getText().length() > 0) {
             number1 = Integer.parseInt(anyaStart.getText().toString());
         } else {
@@ -126,7 +202,37 @@ public class AddSankhya extends Fragment {
         } else {
             number2 = 0;
         }
+        if(anyaStart.getText().toString() != "" && anyaStart.getText().length() > 0) {
+            number1 = Integer.parseInt(anyaStart.getText().toString());
+        } else {
+            number1 = 0;
+        }
+        if(yuvaStart.getText().toString() != "" && yuvaStart.getText().length() > 0) {
+            number3 = Integer.parseInt(yuvaStart.getText().toString());
+        } else {
+            number3 = 0;
+        }
+        if(tarunStart.getText().toString() != "" && tarunStart.getText().length() > 0) {
+            number4 = Integer.parseInt(tarunStart.getText().toString());
+        } else {
+            number4 = 0;
+        }
+        if(kishoreStart.getText().toString() != "" && kishoreStart.getText().length() > 0) {
+            number5 = Integer.parseInt(kishoreStart.getText().toString());
+        } else {
+            number5 = 0;
+        }
+        if(balStart.getText().toString() != "" && balStart.getText().length() > 0) {
+            number6 = Integer.parseInt(balStart.getText().toString());
+        } else {
+            number6 = 0;
+        }
+        if(subStart.getText().toString() != "" && subStart.getText().length() > 0) {
+            number7 = Integer.parseInt(subStart.getText().toString());
+        } else {
+            number7 = 0;
+        }
 
-        return number1 + number2;
+        return number1 + number2 + number3 + number4 + number5 + number6;
     }
 }

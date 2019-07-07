@@ -137,7 +137,6 @@
             </androidx.cardview.widget.CardView>
 
             <!--                               -->
-
             <!-- Row 2 Column 1 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
@@ -380,8 +379,6 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-
         </GridLayout>
     </LinearLayout>
 </ScrollView>
