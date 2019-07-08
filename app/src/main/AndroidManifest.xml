@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SankhyaActivity"
-            android:label="@string/title_activity_test"></activity>
+            android:label="@string/title_activity_test"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".PoliciesActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".KhelActivity" />

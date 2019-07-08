@@ -9,40 +9,56 @@
         android:layout_height="match_parent">
 
     <!-- TODO: Update blank fragment layout -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="50dp"
-        android:layout_marginLeft="25dp">
+        android:layout_marginLeft="25dp"
+        android:id="@+id/mainLayout">
 
         <View
             android:layout_width="1dp"
             android:layout_height="465dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="118dp"
             android:layout_marginLeft="110dp"
             android:background="#474e51" />
         <View
             android:layout_width="1dp"
             android:layout_height="466dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="118dp"
             android:layout_marginRight="110dp"
             android:background="#474e51" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="455dp"
+            android:layout_marginTop="545dp"
             android:background="#474e51" />
+
+
+        <EditText
+            android:id="@+id/edtDateField"
+            android:layout_centerHorizontal="true"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            style="@style/fontForLabels"
+            android:hint="Select Shakha Date"
+            android:textAlignment="center"
+            android:background="@drawable/bg_field"
+            />
 
         <LinearLayout
             android:id="@+id/startLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:gravity="left">
+            android:gravity="left"
+            android:layout_marginTop="90dp">
             <TextView
                 android:id="@+id/startLabel"
                 style="@style/fontForLabels"
@@ -59,7 +75,8 @@
             android:gravity="right"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp">
 
             <TextView
                 android:id="@+id/finishLabel"
@@ -74,7 +91,7 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="51dp"
+            android:layout_marginTop="141dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/anyaLayout"
@@ -116,7 +133,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="111dp"
+            android:layout_marginTop="201dp"
             android:weightSum="3">
 
             <EditText
@@ -154,7 +171,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="171dp"
+            android:layout_marginTop="261dp"
             android:weightSum="3">
 
             <EditText
@@ -192,7 +209,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="231dp"
+            android:layout_marginTop="321dp"
             android:weightSum="3">
             <EditText
                 android:id="@+id/edtTarunStart"
@@ -229,7 +246,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="291dp"
+            android:layout_marginTop="381dp"
             android:weightSum="3">
             <EditText
                 android:id="@+id/edtKishoreStart"
@@ -266,7 +283,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="351dp"
+            android:layout_marginTop="441dp"
             android:layout_marginBottom="100dp"
             android:weightSum="3">
             <EditText
@@ -304,7 +321,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="411dp"
+            android:layout_marginTop="501dp"
             android:layout_marginBottom="100dp"
             android:weightSum="3">
             <EditText
@@ -317,7 +334,10 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="?"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:nextFocusForward="@+id/edtAnyaFinish"/>
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -342,7 +362,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="471dp"
+            android:layout_marginTop="561dp"
             android:layout_marginBottom="100dp"
             android:weightSum="3"
             >
@@ -353,6 +373,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:textAlignment="center"
+                android:text="0"
                 />
             <TextView
                 style="@style/fontForLabels"
@@ -370,6 +391,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:textAlignment="center"
+                android:text="0"
                 />
         </LinearLayout>
     </RelativeLayout>
