@@ -7,20 +7,25 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-public class AddSankhya extends Fragment {
+import java.text.DateFormat;
+import java.util.Calendar;
+
+public class AddSankhya extends Fragment implements DatePickerDialog.OnDateSetListener {
     private FrameLayout fragment;
     EditText anyaStart, anyaFinish, proudhStart, proudhFinish, yuvaStart, yuvaFinish, tarunStart, tarunFinish,
             kishoreStart, kishoreFinish, balStart, balFinish, subStart, subFinish;
     TextView totalStart, totalFinish, shakhaDate;
     Integer totalStartValue, totalFinishValue;
-    DatePickerDialog picker;
+    DatePickerDialog datePickerDialog;
 
     @Nullable
     @Override
@@ -302,9 +307,17 @@ public class AddSankhya extends Fragment {
 
         });
 
+        shakhaDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getFragmentManager(), "date picker");
+            }
+        });
+
         return v;
 
-}
+    }
     //------------------------------------------------------------------------
     //Code below is for adding the numbers for the start column and updating the total number field
     //------------------------------------------------------------------------
@@ -404,4 +417,15 @@ public class AddSankhya extends Fragment {
         return number1 + number2 + number3 + number4 + number5 + number6 + number7;
     }
 
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, i);
+        c.set(Calendar.MONTH, i1);
+        c.set(Calendar.DAY_OF_MONTH, i2);
+
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        shakhaDate.setText(currentDateString);
+    }
 }

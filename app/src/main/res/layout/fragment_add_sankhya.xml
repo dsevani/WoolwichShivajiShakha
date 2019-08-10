@@ -43,13 +43,24 @@
         <EditText
             android:id="@+id/edtDateField"
             android:layout_centerHorizontal="true"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             style="@style/fontForLabels"
-            android:hint="Select Shakha Date"
+            android:enabled="false"
             android:textAlignment="center"
             android:background="@drawable/bg_field"
+            />
+        <Button
+            android:id="@+id/btnDate"
+            android:layout_centerHorizontal="true"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="55dp"
+            android:hint="Pick Date"
+            android:textAlignment="center"
+            android:background="@drawable/bg_button"
+            android:textColor="@android:color/white"
             />
 
         <LinearLayout
