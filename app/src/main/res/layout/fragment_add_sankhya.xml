@@ -20,81 +20,106 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="465dp"
+            android:layout_height="505dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="118dp"
-            android:layout_marginLeft="110dp"
+            android:layout_marginTop="85dp"
+            android:background="#474e51" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="505dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="85dp"
+            android:background="#474e51" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="505dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="85dp"
+            android:layout_marginRight="100dp"
             android:background="#474e51" />
         <View
             android:layout_width="1dp"
-            android:layout_height="466dp"
+            android:layout_height="505dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="118dp"
-            android:layout_marginRight="110dp"
+            android:layout_marginTop="85dp"
             android:background="#474e51" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="545dp"
+            android:layout_marginTop="555dp"
             android:background="#474e51" />
-        <EditText
-            android:id="@+id/edtDateField"
-            android:layout_centerHorizontal="true"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            style="@style/fontForLabels"
-            android:enabled="false"
-            android:textAlignment="center"
-            android:background="@drawable/bg_field"
-            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="85dp"
+            android:background="#474e51" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="115dp"
+            android:background="#474e51" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="591dp"
+            android:background="#474e51" />
+
         <Button
             android:id="@+id/btnDate"
             android:layout_centerHorizontal="true"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="50dp"
-            android:hint="Pick Date"
+            android:layout_marginTop="35dp"
+            android:text="Select Date"
+            android:textAllCaps="false"
             android:textAlignment="center"
-            android:background="@drawable/bg_button"
-            android:textColor="@android:color/white"
+            android:background="@drawable/bg_button2"
+            android:textColor="@android:color/holo_orange_dark"
             />
 
         <LinearLayout
-            android:id="@+id/startLayout"
-            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="90dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:gravity="left"
-            android:layout_marginTop="90dp">
+            android:weightSum="3">
             <TextView
                 android:id="@+id/startLabel"
                 style="@style/fontForLabels"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:layout_marginLeft="20dp"
                 android:text="Start"
                 android:textAlignment="center"
                 android:textSize="13sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/finishLayout"
-            android:layout_toRightOf="@id/startLayout"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp">
+            <EditText
+                android:id="@+id/edtDateField"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/fontForLabels"
+                android:enabled="false"
+                android:textAlignment="center"
+                android:background="@drawable/bg_field"
+                android:layout_weight="1.5"
+                android:hint="--/--/----"
+                android:textColorHint="@android:color/holo_orange_dark"
+                />
 
             <TextView
-                android:id="@+id/finishLabel"
                 style="@style/fontForLabels"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="17dp"
+                android:layout_weight="0.75"
                 android:text="Finish"
-                android:textAlignment="center"
-                android:textSize="13sp" />
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,7 +142,6 @@
                 android:hint="?" />
             <TextView
                 style="@style/fontForLabels"
-                android:layout_below="@id/startLayout"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -402,6 +426,304 @@
                 android:text="0"
                 />
         </LinearLayout>
+
+        <!-- Layouts for rest of sankhya page. shikshaks etc. -->
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="625dp"
+            android:layout_marginBottom="100dp"
+            >
+
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblRiskAssessment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Risk Assessment"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="655dp"
+            android:layout_marginBottom="100dp"
+            >
+
+            <EditText
+                android:id="@+id/edtRiskAssessment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="150"
+                android:hint=""
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="685dp"
+            android:layout_marginBottom="100dp"
+            >
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblSubashit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Subashita"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="715dp"
+            android:layout_marginBottom="100dp"
+            >
+            <EditText
+                android:id="@+id/edtSubashita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="50"
+                android:hint=""
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="745dp">
+
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblFirstaid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="First Aid"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="775dp">
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchFirstAid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="815dp"
+            android:layout_marginBottom="100dp"
+            >
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblBalShikshaks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bal and Shishu Shikshaks"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="845dp"
+            android:layout_marginBottom="100dp"
+            >
+            <EditText
+                android:id="@+id/edtBalShikshaks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="50"
+                android:hint=""
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="875dp"
+            android:layout_marginBottom="100dp"
+            >
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblKTYShikshaks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kishore/Tarun/Yuva Shikshaks"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="905dp"
+            android:layout_marginBottom="100dp"
+            >
+            <EditText
+                android:id="@+id/edtKTYShikshaks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="50"
+                android:hint=""
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="935dp"
+            android:layout_marginBottom="100dp"
+            >
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblBalShareerik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bal and Shishu Shareerik"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="965dp"
+            android:layout_marginBottom="100dp"
+            >
+            <EditText
+                android:id="@+id/edtBSShareerik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="75"
+                android:hint=""
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="995dp"
+            android:layout_marginBottom="100dp"
+            >
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblKTYShareerik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kishore/Tarun/Yuva Shareerik"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1025dp"
+            android:layout_marginBottom="100dp"
+            >
+            <EditText
+                android:id="@+id/edtKTYShareerik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="75"
+                android:hint=""
+                android:singleLine="true"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1055dp"
+            android:layout_marginBottom="100dp"
+            >
+            <TextView
+                style="@style/fontForLabels"
+                android:id="@+id/lblComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comments"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1085dp"
+            android:layout_marginBottom="100dp"
+            >
+            <EditText
+                android:id="@+id/edtComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_field"
+                android:maxLength="250"
+                android:hint=""
+                android:maxLines="5"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1175dp"
+            android:layout_marginBottom="150dp"
+            >
+            <Button
+                android:id="@+id/btnSubmitSankhya"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="45dp"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textAlignment="center"
+                android:background="@drawable/bg_button2"
+                android:textColor="@android:color/holo_orange_dark"
+                />
+        </LinearLayout>
+
+
     </RelativeLayout>
     </ScrollView>
 

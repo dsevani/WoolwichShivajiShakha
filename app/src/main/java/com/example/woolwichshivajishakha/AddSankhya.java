@@ -16,7 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class AddSankhya extends Fragment {
+    private FirebaseAuth database;
     private FrameLayout fragment;
     EditText anyaStart, anyaFinish, proudhStart, proudhFinish, yuvaStart, yuvaFinish, tarunStart, tarunFinish,
             kishoreStart, kishoreFinish, balStart, balFinish, subStart, subFinish;
@@ -29,6 +32,7 @@ public class AddSankhya extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable
                              Bundle savedInstanceState) {
+        database = FirebaseAuth.getInstance();
         final View v = inflater.inflate(R.layout.fragment_add_sankhya, container, false);
 
         anyaStart = (EditText) v.findViewById(R.id.edtAnyaStart);
@@ -421,18 +425,6 @@ public class AddSankhya extends Fragment {
 
         return number1 + number2 + number3 + number4 + number5 + number6 + number7;
     }
-
-    //@Override
-    //public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-    //    Calendar c = Calendar.getInstance();
-    //    c.set(Calendar.YEAR, i);
-    //    c.set(Calendar.MONTH, i1);
-    //    c.set(Calendar.DAY_OF_MONTH, i2);
-
-    //    String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-
-        //shakhaDate.setText(currentDateString);
-    //}
 
 
 }
