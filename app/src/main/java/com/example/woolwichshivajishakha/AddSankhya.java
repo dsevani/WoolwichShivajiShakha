@@ -1,6 +1,5 @@
 package com.example.woolwichshivajishakha;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,30 +8,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.woolwichshivajishakha.Model.Sankhya;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSankhya extends Fragment {
-    private FirebaseAuth database;
-    private FrameLayout fragment;
     EditText anyaStart, anyaFinish, proudhStart, proudhFinish, yuvaStart, yuvaFinish, tarunStart, tarunFinish,
-            kishoreStart, kishoreFinish, balStart, balFinish, subStart, subFinish;
-    TextView totalStart, totalFinish, shakhaDate;
-    Integer totalStartValue, totalFinishValue;
-    DatePickerDialog datePickerDialog;
-    Button selectDate;
+            kishoreStart, kishoreFinish, balStart, balFinish, subStart, subFinish, balShikshaks, ktyShikshaks,
+            balShareerik, ktyShareerik, comments, subashita, riskassessment,shakhaDate;
+    TextView totalStart, totalFinish;
+    Button selectDate, btnSubmitSankhya;
+    View firstaid;
+    Integer anyaStartValue, anyaFinishValue, proudhStartValue, proudhFinishValue, yuvaStartValue,
+            yuvaFinishValue, tarunStartValue, tarunFinishValue,
+            kishoreStartValue, kishoreFinishValue, balStartValue, balFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue;
+    String  balShikshaksValue, ktyShikshaksValue,
+            balShareerikValue, ktyShareerikValue, commentsValue, subashitaValue, riskassessmentValue;
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference mDatabaseReference = mDatabase.getReference();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable
                              Bundle savedInstanceState) {
-        database = FirebaseAuth.getInstance();
         final View v = inflater.inflate(R.layout.fragment_add_sankhya, container, false);
 
         anyaStart = (EditText) v.findViewById(R.id.edtAnyaStart);
@@ -53,6 +57,15 @@ public class AddSankhya extends Fragment {
         totalFinish = (TextView) v.findViewById(R.id.txtTotalFinish);
         shakhaDate = (EditText) v.findViewById(R.id.edtDateField);
         selectDate = (Button) v.findViewById(R.id.btnDate);
+        balShikshaks = (EditText) v.findViewById(R.id.edtBalShikshaks);
+        ktyShikshaks = (EditText) v.findViewById(R.id.edtKTYShikshaks);
+        balShareerik = (EditText) v.findViewById(R.id.edtBSShareerik);
+        ktyShareerik = (EditText) v.findViewById(R.id.edtKTYShareerik);
+        comments = (EditText) v.findViewById(R.id.edtComments);
+        riskassessment = (EditText) v.findViewById(R.id.edtRiskAssessment);
+        subashita = (EditText) v.findViewById(R.id.edtSubashita);
+        //firstaid = (Switch) v.findViewById(R.id.switchFirstAid);
+        btnSubmitSankhya = (Button) v.findViewById(R.id.btnSubmitSankhya);
 
         //------------------------------------------------------------------------
         //Code below is for selecting the sankhya date
@@ -324,6 +337,14 @@ public class AddSankhya extends Fragment {
 
         });
 
+        btnSubmitSankhya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitSankhya();
+
+            }
+        });
+
         return v;
 
     }
@@ -426,5 +447,132 @@ public class AddSankhya extends Fragment {
         return number1 + number2 + number3 + number4 + number5 + number6 + number7;
     }
 
+    public void submitSankhya(){
+        //Puts all values from the fields into an value type
+
+        if (anyaStart.getText().toString().equals("")){
+            anyaStartValue = 0;
+        }
+        else{
+            anyaStartValue = Integer.parseInt(anyaStart.getText().toString());
+        }
+
+        if (anyaFinish.getText().toString().equals("")){
+            anyaFinishValue = 0;
+        }
+        else {
+            anyaFinishValue = Integer.parseInt(anyaFinish.getText().toString());
+        }
+        if (proudhStart.getText().toString().equals("")){
+            proudhStartValue = 0;
+        }
+        else {
+            proudhStartValue = Integer.parseInt(proudhStart.getText().toString());
+        }
+
+        if (proudhFinish.getText().toString().equals("")){
+            proudhFinishValue = 0;
+        }
+        else {
+            proudhFinishValue = Integer.parseInt(proudhFinish.getText().toString());
+        }
+
+        if (yuvaStart.getText().toString().equals("")){
+            yuvaStartValue = 0;
+        }
+        else {
+            yuvaStartValue = Integer.parseInt(yuvaStart.getText().toString());
+        }
+
+        if (yuvaFinish.getText().toString().equals("")){
+            yuvaFinishValue = 0;
+        }
+        else {
+            yuvaFinishValue = Integer.parseInt(yuvaFinish.getText().toString());
+        }
+
+        if (tarunStart.getText().toString().equals("")){
+            tarunStartValue = 0;
+        }
+        else {
+            tarunStartValue = Integer.parseInt(tarunStart.getText().toString());
+        }
+        if (tarunFinish.getText().toString().equals("")){
+            tarunFinishValue = 0;
+        }
+        else {
+            tarunFinishValue = Integer.parseInt(tarunFinish.getText().toString());
+        }
+        if(kishoreStart.getText().toString().equals("")){
+            kishoreStartValue = 0;
+        }
+        else {
+            kishoreStartValue = Integer.parseInt(kishoreStart.getText().toString());
+        }
+        if(kishoreFinish.getText().toString().equals("")){
+            kishoreFinishValue = 0;
+        }
+        else {
+            kishoreFinishValue = Integer.parseInt(kishoreFinish.getText().toString());
+        }
+        if(balStart.getText().toString().equals("")){
+            balStartValue = 0;
+        }
+        else {
+            balStartValue = Integer.parseInt(balStart.getText().toString());
+        }
+        if(balFinish.getText().toString().equals("")){
+            balFinishValue = 0;
+        }
+        else {
+            balFinishValue = Integer.parseInt(balFinish.getText().toString());
+        }
+        if (subStart.getText().toString().equals("")){
+            subStartValue = 0;
+        }
+        else {
+            subStartValue = Integer.parseInt(subStart.getText().toString());
+        }
+        if(subFinish.getText().toString().equals("")){
+            subFinishValue = 0;
+        }
+        else {
+            subFinishValue = Integer.parseInt(subFinish.getText().toString());
+        }
+        if (totalStart.getText().toString().equals("")){
+            totalStartValue = 0;
+        }
+        else {
+            totalStartValue = Integer.parseInt(totalStart.getText().toString());
+        }
+        if(totalFinish.getText().toString().equals("")){
+            totalFinishValue = 0;
+        }
+        else {
+            totalFinishValue = Integer.parseInt(totalFinish.getText().toString());
+        }
+
+        riskassessmentValue = riskassessment.getText().toString();
+        balShikshaksValue = balShikshaks.getText().toString();
+        ktyShikshaksValue = ktyShikshaks.getText().toString();
+        balShareerikValue = balShareerik.getText().toString();
+        ktyShareerikValue = ktyShareerik.getText().toString();
+        commentsValue = comments.getText().toString();
+        subashitaValue = subashita.getText().toString();
+        // = shakhaDate.getText().toString();
+
+        //Creates object
+        Sankhya sankhya = new Sankhya(balStartValue, balFinishValue, kishoreStartValue, kishoreFinishValue,
+                tarunStartValue, tarunFinishValue, yuvaStartValue, yuvaFinishValue, proudhStartValue, proudhFinishValue,
+                anyaStartValue, anyaFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue,
+                riskassessmentValue, subashitaValue, balShikshaksValue, ktyShikshaksValue, balShareerikValue,
+                ktyShareerikValue, commentsValue);
+
+        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(sankhya.getComments());
+        mDatabaseReference.setValue(sankhya);
+
+    }
+
 
 }
+
