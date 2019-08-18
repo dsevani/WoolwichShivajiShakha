@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AddSankhya">
     <ScrollView
         android:layout_width="match_parent"
@@ -525,7 +526,10 @@
                 android:id="@+id/switchFirstAid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false" />
+                android:checked="false"
+                android:textOn="Yes"
+                android:textOff="No"
+                app:showText="true"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -699,14 +703,14 @@
                 android:background="@drawable/bg_field"
                 android:maxLength="250"
                 android:hint=""
-                android:maxLines="5"/>
+                android:singleLine="true"/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1175dp"
+            android:layout_marginTop="1075dp"
             android:layout_marginBottom="150dp"
             >
             <Button

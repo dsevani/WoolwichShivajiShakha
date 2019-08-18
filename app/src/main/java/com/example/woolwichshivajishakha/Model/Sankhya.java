@@ -1,24 +1,18 @@
 package com.example.woolwichshivajishakha.Model;
 
-import android.widget.Switch;
-
-import java.util.Date;
-
 public class Sankhya {
-    public Integer balStart, balFinish, kishoreStart, kishoreFinish, tarunStart, tarunFinish, yuvaStart, yuvaFinish,
+    private Integer balStart, balFinish, kishoreStart, kishoreFinish, tarunStart, tarunFinish, yuvaStart, yuvaFinish,
     proudhStart, proudhFinish, anyaStart, anyaFinish, subtotalStart, subtotalFinish, totalStart, totalFinish;
-    public String riskassessment, subashita, balShikshaks, ktyShikshaks, balShareerik, ktyShareerik, comments;
-    public Switch firstaid;
-    public Date shakhaDate;
+    private String riskassessment, subashita, balShikshaks, ktyShikshaks, balShareerik, ktyShareerik, comments;
+    private Boolean firstaid;
 
     public Sankhya(Integer balStart, Integer balFinish, Integer kishoreStart, Integer kishoreFinish,
                    Integer tarunStart, Integer tarunFinish, Integer yuvaStart, Integer yuvaFinish,
                    Integer proudhStart, Integer proudhFinish,  Integer anyaStart, Integer anyaFinish,
                    Integer subtotalStart, Integer subtotalFinish, Integer totalStart, Integer totalFinish,
                    String riskassessment, String subashita, String balShikshaks,
-                   String ktyShikshaks, String balShareerik, String ktyShareerik, String comments){
+                   String ktyShikshaks, String balShareerik, String ktyShareerik, String comments, Boolean firstAid){
 
-        this.shakhaDate = shakhaDate;
         this.balStart = balStart;
         this.balFinish = balFinish;
         this.kishoreStart = kishoreStart;
@@ -42,42 +36,7 @@ public class Sankhya {
         this.balShareerik = balShareerik;
         this.ktyShareerik = ktyShareerik;
         this.comments = comments;
-        this.firstaid = firstaid;
-    }
-    public void setSankhya(Integer balStart, Integer balFinish, Integer kishoreStart, Integer kishoreFinish,
-                   Integer tarunStart, Integer tarunFinish, Integer yuvaStart, Integer yuvaFinish,
-                   Integer proudhStart, Integer proudhFinish,  Integer anyaStart, Integer anyaFinish,
-                   Integer subtotalStart, Integer subtotalFinish, Integer totalStart, Integer totalFinish,
-                   String riskassessment, String subashita, String balShikshaks,
-                   String ktyShikshaks, String balShareerik, String ktyShareerik, String comments){
-
-        //this.shakhaDate = shakhaDate;
-        this.balStart = balStart;
-        this.balFinish = balFinish;
-        this.kishoreStart = kishoreStart;
-        this.kishoreFinish = kishoreFinish;
-        this.tarunStart = tarunStart;
-        this.tarunFinish = tarunFinish;
-        this.yuvaStart = yuvaStart;
-        this.yuvaFinish = yuvaFinish;
-        this.proudhStart = proudhStart;
-        this.proudhFinish = proudhFinish;
-        this.anyaStart = anyaStart;
-        this.anyaFinish = anyaFinish;
-        this.subtotalStart = subtotalStart;
-        this.subtotalFinish = subtotalFinish;
-        this.totalStart = totalStart;
-        this.totalFinish = totalFinish;
-        this.riskassessment = riskassessment;
-        this.subashita = subashita;
-        this.balShikshaks = balShikshaks;
-        this.ktyShikshaks = ktyShikshaks;
-        this.balShareerik = balShareerik;
-        this.ktyShareerik = ktyShareerik;
-        this.comments = comments;
-
-        //Need to work this out
-        //this.firstaid = firstaid;
+        this.firstaid = firstAid;
     }
 
     //Set methods
@@ -110,7 +69,7 @@ public class Sankhya {
     public void setProudhStart(Integer proudhStart){
         this.proudhStart = proudhStart;
     }
-    public void setProudhFinish(){
+    public void setProudhFinish(Integer proudhFinish){
         this.proudhFinish = proudhFinish;
     }
     public void setAnyaStart(Integer anyaStart){
@@ -152,12 +111,9 @@ public class Sankhya {
     public void setComments(String comments){
         this.comments = comments;
     }
-    public void setShakhaDate(Date shakhaDate){
-        this.shakhaDate = shakhaDate;
+    public void setFirstAid(Boolean firstAid){
+        this.firstaid = firstAid;
     }
-    //public void setFirstAid(Switch firstaid){
-        //this.firstaid = firstaid;
-    //}
 
 
     //Get methods
@@ -232,10 +188,7 @@ public class Sankhya {
     public String getComments(){
         return this.comments;
     }
-    public Date getShakhaDate(){
-        return this.shakhaDate;
+    public Boolean getFirstAid(){
+        return this.firstaid;
     }
-    //public Switch getFirstAid(){
-        //return this.firstaid;
-    //}
 }

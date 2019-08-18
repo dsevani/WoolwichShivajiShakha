@@ -1,5 +1,7 @@
 package com.example.woolwichshivajishakha;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -18,20 +22,27 @@ import com.example.woolwichshivajishakha.Model.Sankhya;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AddSankhya extends Fragment {
     EditText anyaStart, anyaFinish, proudhStart, proudhFinish, yuvaStart, yuvaFinish, tarunStart, tarunFinish,
             kishoreStart, kishoreFinish, balStart, balFinish, subStart, subFinish, balShikshaks, ktyShikshaks,
             balShareerik, ktyShareerik, comments, subashita, riskassessment,shakhaDate;
     TextView totalStart, totalFinish;
     Button selectDate, btnSubmitSankhya;
-    View firstaid;
+    Boolean boolFirstAid;
     Integer anyaStartValue, anyaFinishValue, proudhStartValue, proudhFinishValue, yuvaStartValue,
             yuvaFinishValue, tarunStartValue, tarunFinishValue,
             kishoreStartValue, kishoreFinishValue, balStartValue, balFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue;
     String  balShikshaksValue, ktyShikshaksValue,
-            balShareerikValue, ktyShareerikValue, commentsValue, subashitaValue, riskassessmentValue;
+            balShareerikValue, ktyShareerikValue, commentsValue, subashitaValue, riskassessmentValue, validations;
+    Date shakhaDateValue;
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = mDatabase.getReference();
+    SwitchCompat firstaid;
 
     @Nullable
     @Override
@@ -64,8 +75,8 @@ public class AddSankhya extends Fragment {
         comments = (EditText) v.findViewById(R.id.edtComments);
         riskassessment = (EditText) v.findViewById(R.id.edtRiskAssessment);
         subashita = (EditText) v.findViewById(R.id.edtSubashita);
-        //firstaid = (Switch) v.findViewById(R.id.switchFirstAid);
         btnSubmitSankhya = (Button) v.findViewById(R.id.btnSubmitSankhya);
+        firstaid = (SwitchCompat) v.findViewById(R.id.switchFirstAid);
 
         //------------------------------------------------------------------------
         //Code below is for selecting the sankhya date
@@ -336,12 +347,57 @@ public class AddSankhya extends Fragment {
             }
 
         });
-
+        validations = "";
         btnSubmitSankhya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitSankhya();
+                java.util.Date date = new java.util.Date();
+                try {
+                    shakhaDateValue = new SimpleDateFormat("dd/MM/yyyy").parse(shakhaDate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(shakhaDateValue != null){
+                if (shakhaDateValue.after(date)){
+                    validations = validations + "Shakha Date - cannot be after current date\n";
+                }}
 
+                if (shakhaDate.getText().toString().equals("")){
+                    validations = validations + "Shakha Date - cannot be empty\n";
+                }
+                if (totalStart.getText().toString().equals("0")){
+                    validations = validations + "Starting total sankhya - cannot be 0\n";
+                }
+                if (totalFinish.getText().toString().equals("0")){
+                    validations = validations + "Finishing total sankhya - cannot be 0\n";
+                }
+
+                if (validations.equals("") && shakhaDateValue != null) {
+                    try {
+                        validations = "";
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Are you sure you want to submit sankhya?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                submitSankhya();
+                                anyaStart.requestFocus();
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } catch (android.net.ParseException e) {
+                        Toast.makeText(getActivity(),"Sankhya could not be submitted, please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(getActivity(),"Cannot submit sankhya due to error in following fields:\n" + validations, Toast.LENGTH_SHORT).show();
+                    validations = "";
+                }
             }
         });
 
@@ -559,18 +615,63 @@ public class AddSankhya extends Fragment {
         ktyShareerikValue = ktyShareerik.getText().toString();
         commentsValue = comments.getText().toString();
         subashitaValue = subashita.getText().toString();
-        // = shakhaDate.getText().toString();
+
+        if(firstaid.isChecked()){
+            boolFirstAid = true;
+        }
+        else{
+            boolFirstAid = false;
+        }
+
 
         //Creates object
         Sankhya sankhya = new Sankhya(balStartValue, balFinishValue, kishoreStartValue, kishoreFinishValue,
                 tarunStartValue, tarunFinishValue, yuvaStartValue, yuvaFinishValue, proudhStartValue, proudhFinishValue,
                 anyaStartValue, anyaFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue,
                 riskassessmentValue, subashitaValue, balShikshaksValue, ktyShikshaksValue, balShareerikValue,
-                ktyShareerikValue, commentsValue);
+                ktyShareerikValue, commentsValue, boolFirstAid);
+        String strDate = null;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(shakhaDate.getText().toString());
+            strDate = dateFormat.format(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(sankhya.getComments());
+        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(strDate);
         mDatabaseReference.setValue(sankhya);
+        Toast.makeText(getActivity(),"Sankhya has been submitted!", Toast.LENGTH_SHORT).show();
+        clearForm();
 
+    }
+
+    public void clearForm(){
+        anyaStart.setText("");
+        anyaFinish.setText("");
+        proudhStart.setText("");
+        proudhFinish.setText("");
+        yuvaStart.setText("");
+        yuvaFinish.setText("");
+        tarunStart.setText("");
+        tarunFinish.setText("");
+        kishoreStart.setText("");
+        kishoreFinish.setText("");
+        balStart.setText("");
+        balFinish.setText("");
+        subStart.setText("");
+        subFinish.setText("");
+        totalStart.setText("");
+        totalFinish.setText("");
+        shakhaDate.setText("");
+        balShikshaks.setText("");
+        ktyShikshaks.setText("");
+        balShareerik.setText("");
+        ktyShareerik.setText("");
+        comments.setText("");
+        riskassessment.setText("");
+        subashita.setText("");
+        firstaid.setChecked(false);
     }
 
 
