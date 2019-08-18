@@ -99,7 +99,7 @@
                 android:textAlignment="center"
                 android:textSize="13sp" />
             <EditText
-                android:id="@+id/edtDateField"
+                android:id="@+id/DateField"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="30dp"
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
             android:id="@+id/anyaLayout"
             android:weightSum="3">
             <EditText
-                android:id="@+id/edtAnyaStart"
+                android:id="@+id/AnyaStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -151,7 +151,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtAnyaFinish"
+                android:id="@+id/AnyaFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?"/>
+                android:hint="0"/>
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -170,7 +170,7 @@
             android:weightSum="3">
 
             <EditText
-                android:id="@+id/edtProudhStart"
+                android:id="@+id/ProudhStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -189,7 +189,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtProudhFinish"
+                android:id="@+id/ProudhFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -208,7 +208,7 @@
             android:weightSum="3">
 
             <EditText
-                android:id="@+id/edtYuvaStart"
+                android:id="@+id/YuvaStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -217,7 +217,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -227,7 +227,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtYuvaFinish"
+                android:id="@+id/YuvaFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -236,7 +236,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -245,7 +245,7 @@
             android:layout_marginTop="321dp"
             android:weightSum="3">
             <EditText
-                android:id="@+id/edtTarunStart"
+                android:id="@+id/TarunStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -264,7 +264,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtTarunFinish"
+                android:id="@+id/TarunFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -273,7 +273,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -282,7 +282,7 @@
             android:layout_marginTop="381dp"
             android:weightSum="3">
             <EditText
-                android:id="@+id/edtKishoreStart"
+                android:id="@+id/KishoreStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -291,7 +291,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -301,7 +301,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtKishoreFinish"
+                android:id="@+id/KishoreFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -310,7 +310,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -320,7 +320,7 @@
             android:layout_marginBottom="100dp"
             android:weightSum="3">
             <EditText
-                android:id="@+id/edtBalStart"
+                android:id="@+id/BalStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -329,7 +329,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -339,7 +339,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtBalFinish"
+                android:id="@+id/BalFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -348,7 +348,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -358,7 +358,7 @@
             android:layout_marginBottom="100dp"
             android:weightSum="3">
             <EditText
-                android:id="@+id/edtSubtotalStart"
+                android:id="@+id/SubtotalStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -367,10 +367,10 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?"
+                android:hint="0"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
-                android:nextFocusForward="@+id/edtAnyaFinish"/>
+                android:nextFocusForward="@+id/AnyaFinish"/>
             <TextView
                 style="@style/fontForLabels"
                 android:layout_width="50dp"
@@ -380,7 +380,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"/>
             <EditText
-                android:id="@+id/edtSubtotalFinish"
+                android:id="@+id/SubtotalFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -389,7 +389,7 @@
                 android:background="@drawable/bg_field"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="?" />
+                android:hint="0" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -400,7 +400,7 @@
             android:weightSum="3"
             >
             <TextView
-                android:id="@+id/txtTotalStart"
+                android:id="@+id/TotalStart"
                 android:layout_marginLeft="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -418,7 +418,7 @@
                 android:layout_weight="2"
                 />
             <TextView
-                android:id="@+id/txtTotalFinish"
+                android:id="@+id/TotalFinish"
                 android:layout_marginRight="35dp"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -457,7 +457,7 @@
             >
 
             <EditText
-                android:id="@+id/edtRiskAssessment"
+                android:id="@+id/RiskAssessment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"
@@ -493,7 +493,7 @@
             android:layout_marginBottom="100dp"
             >
             <EditText
-                android:id="@+id/edtSubashita"
+                android:id="@+id/Subashita"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"
@@ -523,7 +523,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="775dp">
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchFirstAid"
+                android:id="@+id/FirstAid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
@@ -557,7 +557,7 @@
             android:layout_marginBottom="100dp"
             >
             <EditText
-                android:id="@+id/edtBalShikshaks"
+                android:id="@+id/BalShikshaks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"
@@ -593,7 +593,7 @@
             android:layout_marginBottom="100dp"
             >
             <EditText
-                android:id="@+id/edtKTYShikshaks"
+                android:id="@+id/KTYShikshaks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"
@@ -628,7 +628,7 @@
             android:layout_marginBottom="100dp"
             >
             <EditText
-                android:id="@+id/edtBSShareerik"
+                android:id="@+id/BSShareerik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"
@@ -663,7 +663,7 @@
             android:layout_marginBottom="100dp"
             >
             <EditText
-                android:id="@+id/edtKTYShareerik"
+                android:id="@+id/KTYShareerik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"
@@ -697,7 +697,7 @@
             android:layout_marginBottom="100dp"
             >
             <EditText
-                android:id="@+id/edtComments"
+                android:id="@+id/Comments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_field"

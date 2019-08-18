@@ -115,7 +115,6 @@ public class Sankhya {
         this.firstaid = firstAid;
     }
 
-
     //Get methods
 
     public Integer getBalStart(){

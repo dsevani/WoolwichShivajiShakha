@@ -8,8 +8,13 @@
 
     <item
         android:id="@+id/navigation_viewSankhya"
-        android:icon="@drawable/add"
+        android:icon="@drawable/baseline_search_black_18dp"
         android:title="View/Search" />
+
+    <item
+        android:id="@+id/navigation_deleteSankhya"
+        android:icon="@drawable/baseline_delete_black_18dp"
+        android:title="Delete" />
 
     <item
         android:id="@+id/navigation_monitorSankhya"

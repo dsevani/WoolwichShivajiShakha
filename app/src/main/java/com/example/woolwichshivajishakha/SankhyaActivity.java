@@ -35,6 +35,10 @@ public class SankhyaActivity extends AppCompatActivity {
                         selectedFragment = new ViewSankhya();
                         break;
 
+                    case R.id.navigation_deleteSankhya:
+                        selectedFragment = new DeleteSankhya();
+                        break;
+
                     case R.id.navigation_monitorSankhya:
                         selectedFragment = new MonitorSankhya();
                         break;

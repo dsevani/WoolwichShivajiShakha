@@ -50,33 +50,33 @@ public class AddSankhya extends Fragment {
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_add_sankhya, container, false);
 
-        anyaStart = (EditText) v.findViewById(R.id.edtAnyaStart);
-        anyaFinish = (EditText) v.findViewById(R.id.edtAnyaFinish);
-        proudhStart = (EditText) v.findViewById(R.id.edtProudhStart);
-        proudhFinish = (EditText) v.findViewById(R.id.edtProudhFinish);
-        yuvaStart = (EditText) v.findViewById(R.id.edtYuvaStart);
-        yuvaFinish = (EditText) v.findViewById(R.id.edtYuvaFinish);
-        tarunStart = (EditText) v.findViewById(R.id.edtTarunStart);
-        tarunFinish = (EditText) v.findViewById(R.id.edtTarunFinish);
-        kishoreStart = (EditText) v.findViewById(R.id.edtKishoreStart);
-        kishoreFinish = (EditText) v.findViewById(R.id.edtKishoreFinish);
-        balStart = (EditText) v.findViewById(R.id.edtBalStart);
-        balFinish = (EditText) v.findViewById(R.id.edtBalFinish);
-        subStart = (EditText) v.findViewById(R.id.edtSubtotalStart);
-        subFinish = (EditText) v.findViewById(R.id.edtSubtotalFinish);
-        totalStart = (TextView) v.findViewById(R.id.txtTotalStart);
-        totalFinish = (TextView) v.findViewById(R.id.txtTotalFinish);
-        shakhaDate = (EditText) v.findViewById(R.id.edtDateField);
+        anyaStart = (EditText) v.findViewById(R.id.AnyaStart);
+        anyaFinish = (EditText) v.findViewById(R.id.AnyaFinish);
+        proudhStart = (EditText) v.findViewById(R.id.ProudhStart);
+        proudhFinish = (EditText) v.findViewById(R.id.ProudhFinish);
+        yuvaStart = (EditText) v.findViewById(R.id.YuvaStart);
+        yuvaFinish = (EditText) v.findViewById(R.id.YuvaFinish);
+        tarunStart = (EditText) v.findViewById(R.id.TarunStart);
+        tarunFinish = (EditText) v.findViewById(R.id.TarunFinish);
+        kishoreStart = (EditText) v.findViewById(R.id.KishoreStart);
+        kishoreFinish = (EditText) v.findViewById(R.id.KishoreFinish);
+        balStart = (EditText) v.findViewById(R.id.BalStart);
+        balFinish = (EditText) v.findViewById(R.id.BalFinish);
+        subStart = (EditText) v.findViewById(R.id.SubtotalStart);
+        subFinish = (EditText) v.findViewById(R.id.SubtotalFinish);
+        totalStart = (TextView) v.findViewById(R.id.TotalStart);
+        totalFinish = (TextView) v.findViewById(R.id.TotalFinish);
+        shakhaDate = (EditText) v.findViewById(R.id.DateField);
         selectDate = (Button) v.findViewById(R.id.btnDate);
-        balShikshaks = (EditText) v.findViewById(R.id.edtBalShikshaks);
-        ktyShikshaks = (EditText) v.findViewById(R.id.edtKTYShikshaks);
-        balShareerik = (EditText) v.findViewById(R.id.edtBSShareerik);
-        ktyShareerik = (EditText) v.findViewById(R.id.edtKTYShareerik);
-        comments = (EditText) v.findViewById(R.id.edtComments);
-        riskassessment = (EditText) v.findViewById(R.id.edtRiskAssessment);
-        subashita = (EditText) v.findViewById(R.id.edtSubashita);
+        balShikshaks = (EditText) v.findViewById(R.id.BalShikshaks);
+        ktyShikshaks = (EditText) v.findViewById(R.id.KTYShikshaks);
+        balShareerik = (EditText) v.findViewById(R.id.BSShareerik);
+        ktyShareerik = (EditText) v.findViewById(R.id.KTYShareerik);
+        comments = (EditText) v.findViewById(R.id.Comments);
+        riskassessment = (EditText) v.findViewById(R.id.RiskAssessment);
+        subashita = (EditText) v.findViewById(R.id.Subashita);
         btnSubmitSankhya = (Button) v.findViewById(R.id.btnSubmitSankhya);
-        firstaid = (SwitchCompat) v.findViewById(R.id.switchFirstAid);
+        firstaid = (SwitchCompat) v.findViewById(R.id.FirstAid);
 
         //------------------------------------------------------------------------
         //Code below is for selecting the sankhya date
@@ -380,6 +380,7 @@ public class AddSankhya extends Fragment {
                         builder.setMessage("Are you sure you want to submit sankhya?");
                         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                //Need to run if statement where if shakha date already exists then dont add
                                 submitSankhya();
                                 anyaStart.requestFocus();
                             }
