@@ -35,6 +35,7 @@ public class ViewSankhya extends Fragment {
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = mDatabase.getReference();
     SwitchCompat firstaid;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable
@@ -77,9 +78,8 @@ public class ViewSankhya extends Fragment {
             }
         });
 
-
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_sankhya, container, false);
+        return v;
     }
 
 
