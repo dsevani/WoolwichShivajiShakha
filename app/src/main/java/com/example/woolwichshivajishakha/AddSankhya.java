@@ -405,6 +405,7 @@ public class AddSankhya extends Fragment {
         return v;
 
     }
+
     //------------------------------------------------------------------------
     //Code below is for adding the numbers for the start column and updating the total number field
     //------------------------------------------------------------------------
@@ -673,8 +674,7 @@ public class AddSankhya extends Fragment {
         riskassessment.setText("");
         subashita.setText("");
         firstaid.setChecked(false);
+
     }
-
-
 }
 
