@@ -10,14 +10,15 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SankhyaActivity extends AppCompatActivity {
+    public static BottomNavigationView nav_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sankhya);
-        BottomNavigationView nav_bar = (BottomNavigationView) findViewById(R.id.nav_view);
+        nav_bar = (BottomNavigationView) findViewById(R.id.nav_view);
         nav_bar.setOnNavigationItemSelectedListener(navListener);
-        Fragment defaultFragment = new AddSankhya();
+        Fragment defaultFragment = new SearchSankhya();
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, defaultFragment).commit();
     }
 
@@ -28,11 +29,11 @@ public class SankhyaActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()){
                     case R.id.navigation_addSankhya:
-                        selectedFragment = new AddSankhya();
+                        selectedFragment = new AddEditSankhya();
                         break;
 
                     case R.id.navigation_viewSankhya:
-                        selectedFragment = new ViewSankhya();
+                        selectedFragment = new SearchSankhya();
                         break;
 
                     case R.id.navigation_deleteSankhya:

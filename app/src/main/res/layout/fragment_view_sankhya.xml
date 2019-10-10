@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ViewSankhya">
+    tools:context=".SearchSankhya">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -13,65 +13,39 @@
 
         <!-- TODO: Update blank fragment layout -->
 
-        <LinearLayout
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="25dp"
-            android:orientation="horizontal"
-            android:id="@+id/mainLayout">
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="Search: DD-MM-YYYY"
+            android:id="@+id/searchSankhyaFilter"/>
 
-            <Button
-                android:id="@+id/btnSearchSankhya"
-                android:layout_centerHorizontal="true"
+            <ListView
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_marginTop="35dp"
-                android:text="Search Sankhya Date"
-                android:textAllCaps="false"
-                android:textAlignment="center"
-                android:background="@drawable/bg_button2"
-                android:textColor="@android:color/holo_orange_dark"
-                />
+                android:layout_height="400dp"
+                android:layout_below="@id/searchSankhyaFilter"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/sankhyaListView">
+            </ListView>
 
-        </LinearLayout>
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:id="@+id/sankhyaListView"
-            android:layout_marginTop="80dp">
-        </ListView>
-        <Button
-            android:id="@+id/btnEditSankhya"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="500dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="25dp"
-            android:text="Edit Sankhya"
-            android:textAllCaps="false"
-            android:textAlignment="center"
-            android:background="@drawable/bg_button2"
-            android:textColor="@android:color/holo_orange_dark"
-            />
-        <Button
-            android:id="@+id/btnDeleteSankhya"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="540dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="25dp"
-            android:text="Delete"
-            android:textAllCaps="false"
-            android:textAlignment="center"
-            android:background="@drawable/bg_button2"
-            android:textColor="@android:color/holo_orange_dark"
-            />
     </RelativeLayout>
-
-</FrameLayout>
+    <Button
+        android:id="@+id/btnEditSankhya"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="495dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="25dp"
+        android:text="Edit Sankhya"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:background="@drawable/bg_button2"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+</RelativeLayout>
