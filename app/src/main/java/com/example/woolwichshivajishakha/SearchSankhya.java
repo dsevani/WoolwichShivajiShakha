@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class SearchSankhya extends Fragment {
     Button btnEditSankhya;
     ListView sankhyaList;
-    EditText dateFilter;
+    EditText dateFilter, shakhaDate;
     FirebaseDatabase database;
     DatabaseReference dbRef;
     private ArrayList<String> sankhyaDateArray = new ArrayList<>();
@@ -51,9 +51,12 @@ public class SearchSankhya extends Fragment {
         btnEditSankhya = (Button) v.findViewById(R.id.btnEditSankhya);
         sankhyaList = (ListView) v.findViewById(R.id.sankhyaListView);
         dateFilter = (EditText) v.findViewById(R.id.searchSankhyaFilter);
+        shakhaDate = (EditText) v.findViewById(R.id.DateField);
+        dateClicked = null;
 
 
-        arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_expandable_list_item_1,sankhyaDateArray);
+
+        arrayAdapter = new ArrayAdapter<String>(getContext(),R.layout.row_layout_delete,sankhyaDateArray);
         sankhyaList.setAdapter(arrayAdapter);
 
         dbRef.addChildEventListener(new ChildEventListener() {
@@ -138,12 +141,11 @@ public class SearchSankhya extends Fragment {
         return v;
     }
 
-    public void populateSankhyaDetails(String dateToPopulate){
+    public void populateSankhyaDetails(final String dateToPopulate){
         // Create new fragment and transaction
         Fragment newFragment = new AddEditSankhya();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(((ViewGroup)getView().getParent()).getId(),newFragment);
-        transaction.addToBackStack(null);
+        transaction.add(((ViewGroup)getView().getParent()).getId(),newFragment);
         transaction.commit();
         SankhyaActivity.nav_bar.setSelectedItemId(R.id.navigation_addSankhya);
 
@@ -564,8 +566,42 @@ public class SearchSankhya extends Fragment {
             }
         });
 
-        //Code below adds a value to the variable populatedDate from AddEditSankhya fragment, because you cannot directly change the date field from here
-        AddEditSankhya.populatedDate = dateToPopulate;
+        dbRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                try {
+                    for(DataSnapshot data: dataSnapshot.getChildren()){
+                        if (data.getKey() == dateToPopulate) {
+                            AddEditSankhya.shakhaDate.setText(data.getKey());
+                            AddEditSankhya.selectDate.setVisibility(View.GONE);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

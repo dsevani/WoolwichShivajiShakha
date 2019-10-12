@@ -19,7 +19,7 @@ public class SankhyaActivity extends AppCompatActivity {
         nav_bar = (BottomNavigationView) findViewById(R.id.nav_view);
         nav_bar.setOnNavigationItemSelectedListener(navListener);
         Fragment defaultFragment = new SearchSankhya();
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, defaultFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentFrame, defaultFragment).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -44,7 +44,7 @@ public class SankhyaActivity extends AppCompatActivity {
                         selectedFragment = new MonitorSankhya();
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, selectedFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentFrame, selectedFragment).commit();
                 return true;
             }
             };

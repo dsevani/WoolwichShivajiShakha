@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".SankhyaActivity">
 
-    <FrameLayout android:id="@+id/mainFrame"
+    <FrameLayout android:id="@+id/mainFragmentFrame"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_above="@id/nav_view"

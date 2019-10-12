@@ -1,19 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".DeleteSankhya">
 
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_gravity="center_vertical|center_horizontal"
+
+        <!-- TODO: Update blank fragment layout -->
+
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Delete" />
-    </ScrollView>
-</FrameLayout>
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="Search: DD-MM-YYYY"
+            android:id="@+id/deleteSankhyaFilter"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@id/deleteSankhyaFilter"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/deleteSankhyaListView">
+            </ListView>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btnDeleteSankhya"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="495dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="25dp"
+        android:text="Delete"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:background="@drawable/bg_button2"
+        android:textColor="@android:color/holo_orange_dark"
+        />
+</RelativeLayout>

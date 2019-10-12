@@ -37,7 +37,7 @@ public class AddEditSankhya extends Fragment {
             kishoreStart, kishoreFinish, balStart, balFinish, subStart, subFinish, balShikshaks, ktyShikshaks,
             balShareerik, ktyShareerik, comments, subashita, riskassessment,shakhaDate;
     TextView totalStart, totalFinish;
-    Button selectDate, btnSubmitSankhya;
+    public static Button selectDate, btnSubmitSankhya;
     Boolean boolFirstAid, dateExists;
     Integer anyaStartValue, anyaFinishValue, proudhStartValue, proudhFinishValue, yuvaStartValue,
             yuvaFinishValue, tarunStartValue, tarunFinishValue,
@@ -48,7 +48,6 @@ public class AddEditSankhya extends Fragment {
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = mDatabase.getReference();
     public static SwitchCompat firstaid;
-    public static String populatedDate;
 
     @Nullable
     @Override
@@ -84,13 +83,6 @@ public class AddEditSankhya extends Fragment {
         firstaid = (SwitchCompat) v.findViewById(R.id.FirstAid);
         selectDate.setEnabled(true);
 
-        //This code below checks if the date was chosen from the search fragment. Its set a value to populatedDate from SearchSankhya, and disables the select date
-        if(populatedDate != null){
-            shakhaDate.setText(populatedDate);
-            selectDate.setEnabled(false);
-        }
-
-
         //------------------------------------------------------------------------
         //Code below is for selecting the sankhya date
         //------------------------------------------------------------------------
@@ -104,10 +96,6 @@ public class AddEditSankhya extends Fragment {
                     newFragment.show(getFragmentManager(), "DatePicker");
                 }
             });
-
-
-
-
 
         //------------------------------------------------------------------------
         //Code below is for updating the total field when the numbers are changed after adding numbers in previous fields under the start column
@@ -376,7 +364,7 @@ public class AddEditSankhya extends Fragment {
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                         //Code to check if the shakha date already exists in firebase, if it does it sets the boolean to true
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            if (data.getKey().equals(populatedDate)) {
+                            if (data.getKey().equals(shakhaDate.getText().toString())) {
                                 dateExists = true;
                             }
                         }
@@ -467,7 +455,7 @@ public class AddEditSankhya extends Fragment {
                             validations = "";
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage("Sankhya for " + populatedDate + " already exists, are you " +
+                            builder.setMessage("Sankhya for " + shakhaDate.getText().toString() + " already exists, are you " +
                                     "sure you want to apply these changes, this cannot be undone.");
                             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -492,9 +480,7 @@ public class AddEditSankhya extends Fragment {
                 }
             }
         });
-
         return v;
-
     }
 
     //------------------------------------------------------------------------
@@ -867,11 +853,11 @@ public class AddEditSankhya extends Fragment {
                 riskassessmentValue, subashitaValue, balShikshaksValue, ktyShikshaksValue, balShareerikValue,
                 ktyShareerikValue, commentsValue, boolFirstAid);
 
-        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(populatedDate);
+        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(shakhaDate.getText().toString());
         mDatabaseReference.setValue(sankhya);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Sankhya for " + populatedDate + " has been updated!");
+        builder.setMessage("Sankhya for " + shakhaDate.getText().toString()+ " has been updated!");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Reopens search fragment
@@ -913,12 +899,8 @@ public class AddEditSankhya extends Fragment {
         riskassessment.setText("");
         subashita.setText("");
         firstaid.setChecked(false);
-        populatedDate = null;
         dateExists = false;
     }
-
-
-
 
 }
 
