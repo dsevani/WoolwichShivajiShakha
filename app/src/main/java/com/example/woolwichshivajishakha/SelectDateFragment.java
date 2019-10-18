@@ -31,7 +31,14 @@ public class SelectDateFragment extends DialogFragment implements DatePickerDial
 
     public void populateSetDate(int year, int month, int day) {
                 TextView shakhaDate = (TextView) getActivity().findViewById(R.id.DateField);
-                shakhaDate.setText(day + "/" + month + "/" + year);
+                int dayLength = String.valueOf(day).length();
+
+                if(dayLength == 1){
+                    shakhaDate.setText("0" + day + "-" + month + "-" + year);
+                }
+                else {
+                    shakhaDate.setText(day + "-" + month + "-" + year);
+                }
 
 
     }

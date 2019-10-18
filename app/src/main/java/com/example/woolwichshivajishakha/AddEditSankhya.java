@@ -38,7 +38,7 @@ public class AddEditSankhya extends Fragment {
             balShareerik, ktyShareerik, comments, subashita, riskassessment,shakhaDate;
     TextView totalStart, totalFinish;
     public static Button selectDate, btnSubmitSankhya;
-    Boolean boolFirstAid, dateExists;
+    Boolean boolFirstAid;
     Integer anyaStartValue, anyaFinishValue, proudhStartValue, proudhFinishValue, yuvaStartValue,
             yuvaFinishValue, tarunStartValue, tarunFinishValue,
             kishoreStartValue, kishoreFinishValue, balStartValue, balFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue;
@@ -48,6 +48,7 @@ public class AddEditSankhya extends Fragment {
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = mDatabase.getReference();
     public static SwitchCompat firstaid;
+    Boolean dateExists = false;
 
     @Nullable
     @Override
@@ -367,7 +368,10 @@ public class AddEditSankhya extends Fragment {
                             if (data.getKey().equals(shakhaDate.getText().toString())) {
                                 dateExists = true;
                             }
+                            Toast.makeText(getActivity(), "Key " + data.getKey() + " boolean " + dateExists + " date " + shakhaDate.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
+
+
                     }
 
                     @Override
@@ -392,7 +396,7 @@ public class AddEditSankhya extends Fragment {
                 });
 
                 // If the shakha date does not already exist it will add a completely new one
-                if (dateExists = false) {
+                if (dateExists == false) {
                     java.util.Date date = new java.util.Date();
                     try {
                         shakhaDateValue = new SimpleDateFormat("dd/MM/yyyy").parse(shakhaDate.getText().toString());
@@ -442,7 +446,7 @@ public class AddEditSankhya extends Fragment {
                         validations = "";
                     }
                 }
-                else if (dateExists = true){
+                else if (dateExists == true){
                     if (totalStart.getText().toString().equals("0")) {
                         validations = validations + "Starting total sankhya - cannot be 0\n";
                     }
@@ -478,7 +482,9 @@ public class AddEditSankhya extends Fragment {
                     }
 
                 }
+                dateExists = false;
             }
+
         });
         return v;
     }
@@ -899,7 +905,6 @@ public class AddEditSankhya extends Fragment {
         riskassessment.setText("");
         subashita.setText("");
         firstaid.setChecked(false);
-        dateExists = false;
     }
 
 }
