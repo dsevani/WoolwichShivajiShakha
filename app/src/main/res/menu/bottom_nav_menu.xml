@@ -10,11 +10,6 @@
         android:icon="@drawable/view"
         android:title="Add/Edit" />
     <item
-        android:id="@+id/navigation_deleteSankhya"
-        android:icon="@drawable/baseline_delete_black_18dp"
-        android:title="Delete" />
-
-    <item
         android:id="@+id/navigation_monitorSankhya"
         android:icon="@drawable/monitor"
         android:title="Monitor" />

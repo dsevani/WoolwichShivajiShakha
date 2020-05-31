@@ -121,14 +121,11 @@ public class SearchSankhya extends Fragment {
                  builder.setMessage("Are you sure you want to view sankhya for date " + dateClicked + "?");
                  builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                      public void onClick(DialogInterface dialog, int id) {
-                         //
-                         Toast.makeText(getActivity(), "View" + dateClicked, Toast.LENGTH_SHORT).show();
                          populateSankhyaDetails(dateClicked);
                      }
                  });
                  builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                      public void onClick(DialogInterface dialog, int id) {
-                         Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
                      }
                  });
                  AlertDialog dialog = builder.create();
@@ -136,6 +133,38 @@ public class SearchSankhya extends Fragment {
              }
 
          });
+
+        //On long click of the list item, it will confirm whether user wants to delete the shakha
+
+        sankhyaList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int itemNumber = i;
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                dateClicked = sankhyaDateArray.get(i);
+                builder.setMessage("Are you sure you want to delete sankhya for date " + dateClicked + "?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        sankhyaDateArray.remove(itemNumber);
+                        arrayAdapter.notifyDataSetChanged();
+                        //Remove from firebase too
+                        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("Sankhya").child(dateClicked).removeValue();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getActivity(), "Cancel", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+
+                return true;
+            }
+        });
 
         // Inflate the layout for this fragment
         return v;
