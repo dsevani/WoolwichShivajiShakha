@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -353,141 +354,88 @@ public class AddEditSankhya extends Fragment {
             }
 
         });
-        validations = "";
 
+        validations = "";
         btnSubmitSankhya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                mDatabaseReference.addChildEventListener(new ChildEventListener() {
+                mDatabaseReference.child("Sankhya").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        //Code to check if the shakha date already exists in firebase, if it does it sets the boolean to true
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            if (data.getKey().equals(shakhaDate.getText().toString())) {
-                                dateExists = true;
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if ((snapshot.child(shakhaDate.getText().toString()).exists()) && (!shakhaDate.getText().toString().equals(""))) {
+
+                            try {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("Sankhya for " + shakhaDate.getText().toString() + " already exists, are you " +
+                                        "sure you want to apply these changes, this cannot be undone.");
+                                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        updateSankhya();
+                                        anyaStart.requestFocus();
+                                    }
+                                });
+                                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+
+                            } catch (android.net.ParseException e) {
+                                Toast.makeText(getActivity(), "Sankhya could not be updated, please try again", Toast.LENGTH_SHORT).show();
                             }
-                            Toast.makeText(getActivity(), "Key " + data.getKey() + " boolean " + dateExists + " date " + shakhaDate.getText().toString(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (shakhaDate.getText().toString().equals("")) {
+                                validations = validations + "Shakha Date - cannot be empty\n";
+                            }
+                            if (totalStart.getText().toString().equals("0")) {
+                                validations = validations + "Starting total sankhya - cannot be 0\n";
+                            }
+                            if (totalFinish.getText().toString().equals("0")) {
+                                validations = validations + "Finishing total sankhya - cannot be 0\n";
+                            }
+
+                            if (validations.equals("") && !shakhaDate.getText().toString().equals("")) {
+                                try {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("Are you sure you want to submit sankhya?");
+                                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            //Need to run if statement where if shakha date already exists then dont add
+                                            submitSankhya();
+                                            anyaStart.requestFocus();
+                                        }
+                                    });
+                                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                        }
+                                    });
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                } catch (android.net.ParseException e) {
+                                    Toast.makeText(getActivity(), "Sankhya could not be submitted, please try again", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(getActivity(), "Cannot submit sankhya due to error in following fields:\n" + validations, Toast.LENGTH_SHORT).show();
+                            }
+                            validations = "";
                         }
-
-
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
+                    ;
                 });
-
-                // If the shakha date does not already exist it will add a completely new one
-                if (dateExists == false) {
-                    java.util.Date date = new java.util.Date();
-                    try {
-                        shakhaDateValue = new SimpleDateFormat("dd/MM/yyyy").parse(shakhaDate.getText().toString());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    if (shakhaDateValue != null) {
-                        if (shakhaDateValue.after(date)) {
-                            validations = validations + "Shakha Date - cannot be after current date\n";
-                        }
-                    }
-
-                    if (shakhaDate.getText().toString().equals("")) {
-                        validations = validations + "Shakha Date - cannot be empty\n";
-                    }
-                    if (totalStart.getText().toString().equals("0")) {
-                        validations = validations + "Starting total sankhya - cannot be 0\n";
-                    }
-                    if (totalFinish.getText().toString().equals("0")) {
-                        validations = validations + "Finishing total sankhya - cannot be 0\n";
-                    }
-
-                    if (validations.equals("") && shakhaDateValue != null) {
-                        try {
-                            validations = "";
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage("Are you sure you want to submit sankhya?");
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //Need to run if statement where if shakha date already exists then dont add
-                                    submitSankhya();
-                                    anyaStart.requestFocus();
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        } catch (android.net.ParseException e) {
-                            Toast.makeText(getActivity(), "Sankhya could not be submitted, please try again", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "Cannot submit sankhya due to error in following fields:\n" + validations, Toast.LENGTH_SHORT).show();
-                        validations = "";
-                    }
-                }
-                else if (dateExists == true){
-                    if (totalStart.getText().toString().equals("0")) {
-                        validations = validations + "Starting total sankhya - cannot be 0\n";
-                    }
-                    if (totalFinish.getText().toString().equals("0")) {
-                        validations = validations + "Finishing total sankhya - cannot be 0\n";
-                    }
-
-                    if (validations.equals("")) {
-                        try {
-                            validations = "";
-
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage("Sankhya for " + shakhaDate.getText().toString() + " already exists, are you " +
-                                    "sure you want to apply these changes, this cannot be undone.");
-                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    updateSankhya();
-                                    anyaStart.requestFocus();
-                                }
-                            });
-                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        } catch (android.net.ParseException e) {
-                            Toast.makeText(getActivity(), "Sankhya could not be updated, please try again", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "Cannot update sankhya due to error in following fields:\n" + validations, Toast.LENGTH_SHORT).show();
-                        validations = "";
-                    }
-
-                }
-                dateExists = false;
             }
-
         });
+
         return v;
-    }
+};
 
     //------------------------------------------------------------------------
     //Code below is for adding the numbers for the start column and updating the total number field
@@ -715,19 +663,26 @@ public class AddEditSankhya extends Fragment {
                 anyaStartValue, anyaFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue,
                 riskassessmentValue, subashitaValue, balShikshaksValue, ktyShikshaksValue, balShareerikValue,
                 ktyShareerikValue, commentsValue, boolFirstAid);
-        String strDate = null;
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(shakhaDate.getText().toString());
-            strDate = dateFormat.format(date1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(strDate);
+        mDatabaseReference = mDatabase.getReference().child("Sankhya").child(shakhaDate.getText().toString());
         mDatabaseReference.setValue(sankhya);
-        Toast.makeText(getActivity(),"Sankhya has been submitted!", Toast.LENGTH_SHORT).show();
         clearForm();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Sankhya has been submitted!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Reopens search fragment
+                Fragment newFragment = new SearchSankhya();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(((ViewGroup)getView().getParent()).getId(),newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                SankhyaActivity.nav_bar.setSelectedItemId(R.id.navigation_viewSankhya);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        validations = "";
 
     }
 
@@ -905,6 +860,7 @@ public class AddEditSankhya extends Fragment {
         riskassessment.setText("");
         subashita.setText("");
         firstaid.setChecked(false);
+        shakhaDate.setText("--/--/----");
     }
 
 }
