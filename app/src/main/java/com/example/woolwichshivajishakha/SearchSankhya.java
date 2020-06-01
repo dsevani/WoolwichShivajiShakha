@@ -160,8 +160,6 @@ public class SearchSankhya extends Fragment {
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-
-
                 return true;
             }
         });
