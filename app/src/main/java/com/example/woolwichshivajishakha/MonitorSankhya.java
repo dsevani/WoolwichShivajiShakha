@@ -1,7 +1,9 @@
 package com.example.woolwichshivajishakha;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,25 +91,29 @@ public class MonitorSankhya extends Fragment {
                     ageFirebase = "anyaFinish";
                 }
 
+                //This retrieves values from firebase that match the select month and select year dropdown, and sets it into the line graph
 
-                ValueEventListener valueEventListener = new ValueEventListener() {
+                DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
+                sankhyaReference.orderByChild("monthYear").equalTo(selectedMonth + selectedYear).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
-                            for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        DataPoint[] dp = new DataPoint[(int) dataSnapshot.getChildrenCount()];
+                        int index = 0;
 
-                            }
+                        for (DataSnapshot s: dataSnapshot.getChildren()) {
+                            Log.d("TAG", s.getKey());
+                            //dp [index] = new DataPoint(Integer.parseInt(s.getKey()), pointValue.getTotalFinish());
+                            //index++;
                         }
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    public void onCancelled(DatabaseError databaseError) {
+                        throw databaseError.toException(); // don't ignore errors
                     }
-                };
+                });
 
-                Query query = FirebaseDatabase.getInstance().getReference("Sankhya").orderByChild("monthYear").equalTo(selectedMonth+selectedYear);
-                query.addValueEventListener(valueEventListener);
+                //-----------------------------------------------------------------
 
 
             }
