@@ -8,16 +8,28 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.woolwichshivajishakha.Model.Sankhya;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MonitorSankhya extends Fragment {
     public static Button btnGenerateMonitor;
+    DatabaseReference database;
+    LineGraphSeries<DataPoint> series;
+    GraphView sankhyaMonitorGraph;
 
     @Nullable
     @Override
@@ -27,38 +39,85 @@ public class MonitorSankhya extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_monitor_sankhya, container, false);
 
         btnGenerateMonitor = (Button) v.findViewById(R.id.btnGenerateMonitor);
+        sankhyaMonitorGraph = (GraphView) v.findViewById(R.id.monitorGraphView);
 
         //Create spinner object and dropdown for sampat lines
-        Spinner ageDropdown = (Spinner) v.findViewById(R.id.ageDropdown);
+        final Spinner ageDropdown = (Spinner) v.findViewById(R.id.ageDropdown);
         ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Ages));
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ageDropdown.setAdapter(ageAdapter);
 
         //Create spinner object and dropdown for month
-        Spinner monthDropdown = (Spinner) v.findViewById(R.id.monthDropdown);
+        final Spinner monthDropdown = (Spinner) v.findViewById(R.id.monthDropdown);
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Month));
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthDropdown.setAdapter(monthAdapter);
 
         //Create spinner object and dropdown for year
-        Spinner yearDropdown = (Spinner) v.findViewById(R.id.yearDropdown);
+        final Spinner yearDropdown = (Spinner) v.findViewById(R.id.yearDropdown);
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Year));
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearDropdown.setAdapter(yearAdapter);
 
-        GraphView sankhyaMonitorGraph = (GraphView) v.findViewById(R.id.monitorGraphView);
+        btnGenerateMonitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                database = FirebaseDatabase.getInstance().getReference("Sankhya");
 
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(getDataPoint());
-        sankhyaMonitorGraph.addSeries(series);
+                String selectedAge = ageDropdown.getSelectedItem().toString();
+                String selectedMonth = monthDropdown.getSelectedItem().toString();
+                String selectedYear = yearDropdown.getSelectedItem().toString();
+                String ageFirebase;
+
+                //Mapping dropdown value to field in firebase
+                if (selectedAge.equals("Bal")){
+                    ageFirebase = "balFinish";
+                }
+                if (selectedAge.equals("Kishore")){
+                    ageFirebase = "kishoreFinish";
+                }
+                if (selectedAge.equals("Bal")){
+                    ageFirebase = "tarunFinish";
+                }
+                if (selectedAge.equals("Bal")){
+                    ageFirebase = "yuvaFinish";
+                }
+                if (selectedAge.equals("Bal")){
+                    ageFirebase = "proudhFinish";
+                }
+                if (selectedAge.equals("Bal")){
+                    ageFirebase = "anyaFinish";
+                }
+
+
+                ValueEventListener valueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+
+                Query query = FirebaseDatabase.getInstance().getReference("Sankhya").orderByChild("monthYear").equalTo(selectedMonth+selectedYear);
+                query.addValueEventListener(valueEventListener);
+
+
+            }
+        });
+
+
 
     return v;
+
+
     }
 
-    private DataPoint[] getDataPoint(){
-        DataPoint[] dp = new DataPoint[]{
-                new DataPoint(4,1),
-                new DataPoint(5,2)
-        };
-        return (dp);
-    };
 }

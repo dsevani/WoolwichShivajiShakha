@@ -3,7 +3,7 @@ package com.example.woolwichshivajishakha.Model;
 public class Sankhya {
     private Integer balStart, balFinish, kishoreStart, kishoreFinish, tarunStart, tarunFinish, yuvaStart, yuvaFinish,
     proudhStart, proudhFinish, anyaStart, anyaFinish, subtotalStart, subtotalFinish, totalStart, totalFinish;
-    private String riskassessment, subashita, balShikshaks, ktyShikshaks, balShareerik, ktyShareerik, comments;
+    private String riskassessment, subashita, balShikshaks, ktyShikshaks, balShareerik, ktyShareerik, comments, monthyear;
     private Boolean firstaid;
 
     public Sankhya(Integer balStart, Integer balFinish, Integer kishoreStart, Integer kishoreFinish,
@@ -11,7 +11,7 @@ public class Sankhya {
                    Integer proudhStart, Integer proudhFinish,  Integer anyaStart, Integer anyaFinish,
                    Integer subtotalStart, Integer subtotalFinish, Integer totalStart, Integer totalFinish,
                    String riskassessment, String subashita, String balShikshaks,
-                   String ktyShikshaks, String balShareerik, String ktyShareerik, String comments, Boolean firstAid){
+                   String ktyShikshaks, String balShareerik, String ktyShareerik, String comments, Boolean firstAid, String monthyear){
 
         this.balStart = balStart;
         this.balFinish = balFinish;
@@ -37,6 +37,7 @@ public class Sankhya {
         this.ktyShareerik = ktyShareerik;
         this.comments = comments;
         this.firstaid = firstAid;
+        this.monthyear = monthyear;
     }
 
     //Set methods
@@ -114,6 +115,7 @@ public class Sankhya {
     public void setFirstAid(Boolean firstAid){
         this.firstaid = firstAid;
     }
+    public void setMonthYear(String Month){this.monthyear = monthyear;}
 
     //Get methods
 
@@ -190,4 +192,5 @@ public class Sankhya {
     public Boolean getFirstAid(){
         return this.firstaid;
     }
+    public String getMonthYear(){return this.monthyear;}
 }

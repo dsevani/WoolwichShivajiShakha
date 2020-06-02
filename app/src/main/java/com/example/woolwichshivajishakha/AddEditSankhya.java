@@ -44,7 +44,7 @@ public class AddEditSankhya extends Fragment {
             yuvaFinishValue, tarunStartValue, tarunFinishValue,
             kishoreStartValue, kishoreFinishValue, balStartValue, balFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue;
     String  balShikshaksValue, ktyShikshaksValue,
-            balShareerikValue, ktyShareerikValue, commentsValue, subashitaValue, riskassessmentValue, validations;
+            balShareerikValue, ktyShareerikValue, commentsValue, subashitaValue, riskassessmentValue, validations, monthyear;
     Date shakhaDateValue;
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference mDatabaseReference = mDatabase.getReference();
@@ -648,6 +648,9 @@ public class AddEditSankhya extends Fragment {
         ktyShareerikValue = ktyShareerik.getText().toString();
         commentsValue = comments.getText().toString();
         subashitaValue = subashita.getText().toString();
+        String year = shakhaDate.getText().toString().substring(Math.max(shakhaDate.getText().toString().length() - 4, 0));
+        String month = shakhaDate.getText().toString().substring(3,5);
+        monthyear = month + year;
 
         if(firstaid.isChecked()){
             boolFirstAid = true;
@@ -662,7 +665,7 @@ public class AddEditSankhya extends Fragment {
                 tarunStartValue, tarunFinishValue, yuvaStartValue, yuvaFinishValue, proudhStartValue, proudhFinishValue,
                 anyaStartValue, anyaFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue,
                 riskassessmentValue, subashitaValue, balShikshaksValue, ktyShikshaksValue, balShareerikValue,
-                ktyShareerikValue, commentsValue, boolFirstAid);
+                ktyShareerikValue, commentsValue, boolFirstAid, monthyear);
 
         mDatabaseReference = mDatabase.getReference().child("Sankhya").child(shakhaDate.getText().toString());
         mDatabaseReference.setValue(sankhya);
@@ -805,6 +808,10 @@ public class AddEditSankhya extends Fragment {
         else{
             boolFirstAid = false;
         }
+        String year = shakhaDate.getText().toString().substring(Math.max(shakhaDate.getText().toString().length() - 4, 0));
+        String month = shakhaDate.getText().toString().substring(3,5);
+        monthyear = month + year;
+
 
 
         //Creates object
@@ -812,7 +819,7 @@ public class AddEditSankhya extends Fragment {
                 tarunStartValue, tarunFinishValue, yuvaStartValue, yuvaFinishValue, proudhStartValue, proudhFinishValue,
                 anyaStartValue, anyaFinishValue, subStartValue, subFinishValue, totalStartValue, totalFinishValue,
                 riskassessmentValue, subashitaValue, balShikshaksValue, ktyShikshaksValue, balShareerikValue,
-                ktyShareerikValue, commentsValue, boolFirstAid);
+                ktyShareerikValue, commentsValue, boolFirstAid, monthyear);
 
         mDatabaseReference = mDatabase.getReference().child("Sankhya").child(shakhaDate.getText().toString());
         mDatabaseReference.setValue(sankhya);
