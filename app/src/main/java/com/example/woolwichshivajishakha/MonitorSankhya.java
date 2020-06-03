@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -27,11 +29,15 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
+
 public class MonitorSankhya extends Fragment {
     public static Button btnGenerateMonitor;
     DatabaseReference database;
     LineGraphSeries<DataPoint> series;
     GraphView sankhyaMonitorGraph;
+    String tempName= "";
+
 
     @Nullable
     @Override
@@ -61,69 +67,112 @@ public class MonitorSankhya extends Fragment {
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearDropdown.setAdapter(yearAdapter);
 
-        btnGenerateMonitor.setOnClickListener(new View.OnClickListener() {
+        //This automatically adds the monthYear value as soon as it has been selected in the dropdown for Month
+        monthDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                database = FirebaseDatabase.getInstance().getReference("Sankhya");
-
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedAge = ageDropdown.getSelectedItem().toString();
-                String selectedMonth = monthDropdown.getSelectedItem().toString();
-                String selectedYear = yearDropdown.getSelectedItem().toString();
-                String ageFirebase;
-
-                //Mapping dropdown value to field in firebase
-                if (selectedAge.equals("Bal")){
-                    ageFirebase = "balFinish";
-                }
-                if (selectedAge.equals("Kishore")){
-                    ageFirebase = "kishoreFinish";
-                }
-                if (selectedAge.equals("Bal")){
-                    ageFirebase = "tarunFinish";
-                }
-                if (selectedAge.equals("Bal")){
-                    ageFirebase = "yuvaFinish";
-                }
-                if (selectedAge.equals("Bal")){
-                    ageFirebase = "proudhFinish";
-                }
-                if (selectedAge.equals("Bal")){
-                    ageFirebase = "anyaFinish";
-                }
-
-                //This retrieves values from firebase that match the select month and select year dropdown, and sets it into the line graph
-
+                final String selectedMonth = monthDropdown.getSelectedItem().toString();
+                final String selectedYear = yearDropdown.getSelectedItem().toString();
                 DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
                 sankhyaReference.orderByChild("monthYear").equalTo(selectedMonth + selectedYear).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        DataPoint[] dp = new DataPoint[(int) dataSnapshot.getChildrenCount()];
-                        int index = 0;
-
-                        for (DataSnapshot s: dataSnapshot.getChildren()) {
-                            Log.d("TAG", s.getKey());
-                            //dp [index] = new DataPoint(Integer.parseInt(s.getKey()), pointValue.getTotalFinish());
-                            //index++;
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!selectedMonth.equals("") && !selectedYear.equals("")){
+                            matchSankhyaDate(dataSnapshot);
+                        }
+                        else {
+                            array.clear();
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        throw databaseError.toException(); // don't ignore errors
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
                 });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //This automatically adds the monthYear value as soon as it has been selected in the dropdown for Month
+        yearDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedAge = ageDropdown.getSelectedItem().toString();
+                final String selectedMonth = monthDropdown.getSelectedItem().toString();
+                final String selectedYear = yearDropdown.getSelectedItem().toString();
+                DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
+                sankhyaReference.orderByChild("monthYear").equalTo(selectedMonth + selectedYear).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!selectedMonth.equals("") && !selectedYear.equals("")){
+                            matchSankhyaDate(dataSnapshot);
+                        }
+                        else {
+                            array.clear();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+                //DatabaseReference sankhyaRef;
+                //sankhyaRef = FirebaseDatabase.getInstance().getReference();
+                //for (int counter = 0; counter < array.size(); counter ++){
+                    //sankhyaRef.child("Sankhya").child(array.get(counter)).child("totalFinish").addValueEventListener(new ValueEventListener() {
+
+
+
+
+
+
+        btnGenerateMonitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Years found = ", String.valueOf(array));
+                Log.d("totalFinish", String.valueOf(totalFinishArray));
+
+
+                //Log.d("null for ", s.getKey());
 
                 //-----------------------------------------------------------------
 
 
             }
         });
-
-
-
     return v;
 
 
     }
+
+    //This function matches the month and year, and puts all values which match the date key in an array
+    ArrayList<String> array = new ArrayList<>();
+    public void matchSankhyaDate(DataSnapshot dataSnapshot){
+        for (DataSnapshot s: dataSnapshot.getChildren()) {
+            array.add(s.getKey());
+        }
+
+    }
+    //This function matches the date, and retrieves the totalFinish value for the corresponding date
+    ArrayList<String> totalFinishArray = new ArrayList<>();
+    public void matchSankhya(DataSnapshot dataSnapshot){
+        totalFinishArray.add(dataSnapshot.getValue().toString());
+    }
+
+
 
 }
