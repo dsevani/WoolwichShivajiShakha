@@ -26,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -59,6 +61,10 @@ public class MonitorSankhya extends Fragment {
 
         btnGenerateMonitor = (Button) v.findViewById(R.id.btnGenerateMonitor);
         sankhyaMonitorGraph = (GraphView) v.findViewById(R.id.monitorGraphView);
+        sankhyaMonitorGraph.getViewport().setScalable(true);  // activate horizontal zooming and scrolling
+        sankhyaMonitorGraph.getViewport().setScrollable(true);  // activate horizontal scrolling
+        sankhyaMonitorGraph.getViewport().setScalableY(true);  // activate horizontal and vertical zooming and scrolling
+        sankhyaMonitorGraph.getViewport().setScrollableY(true);  // activate vertical scrolling
 
         //Create spinner object and dropdown for sampat lines
         final Spinner ageDropdown = (Spinner) v.findViewById(R.id.ageDropdown);
@@ -181,10 +187,40 @@ public class MonitorSankhya extends Fragment {
                 Log.d("Timeframes", String.valueOf(timestampedDates));
                 Log.d("Dates found = ", String.valueOf(datesArray));
                 Log.d("Values found = ", String.valueOf(valuesArray));
+
+                series = new LineGraphSeries<>(data());
+                sankhyaMonitorGraph.addSeries(series);
+
+                sankhyaMonitorGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
+                {
+                    @Override
+                    public String formatLabel(double value, boolean isValueX) {
+                        if (isValueX){
+                            for(int i = 0; i<datesArray.size() ; i++){
+                                return datesArray.get(i);
+                            }
+                        }
+                        return super.formatLabel(value, isValueX);
+                    }
+                });
+
+
             }
         });
         return v;
 
+
+    }
+
+    public DataPoint[] data(){
+        int n = datesArray.size();
+        DataPoint[] values = new DataPoint[n];
+        for(int i = 0; i<n ; i++){
+            DataPoint v = new DataPoint(i, Integer.parseInt(valuesArray.get(i)));
+            values[i] = v;
+        }
+
+        return values;
 
     }
 
