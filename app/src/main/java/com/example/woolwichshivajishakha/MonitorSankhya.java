@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.woolwichshivajishakha.Model.Sankhya;
+import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,19 +30,29 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class MonitorSankhya extends Fragment {
     public static Button btnGenerateMonitor;
     DatabaseReference database;
     LineGraphSeries<DataPoint> series;
     GraphView sankhyaMonitorGraph;
-    String tempName= "";
+    String selectedAge = "";
+    String ageItem = "";
+    Spinner ageDropdown, timestampDropdown;
+    ArrayList<String> timestampedDates = new ArrayList<>();
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container, @Nullable
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_monitor_sankhya, container, false);
@@ -56,123 +67,262 @@ public class MonitorSankhya extends Fragment {
         ageDropdown.setAdapter(ageAdapter);
 
         //Create spinner object and dropdown for month
-        final Spinner monthDropdown = (Spinner) v.findViewById(R.id.monthDropdown);
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Month));
+        final Spinner timestampDropdown = (Spinner) v.findViewById(R.id.timestampDropdown);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Timestamp));
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        monthDropdown.setAdapter(monthAdapter);
+        timestampDropdown.setAdapter(monthAdapter);
 
-        //Create spinner object and dropdown for year
-        final Spinner yearDropdown = (Spinner) v.findViewById(R.id.yearDropdown);
-        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Year));
-        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearDropdown.setAdapter(yearAdapter);
 
-        //This automatically adds the monthYear value as soon as it has been selected in the dropdown for Month
-        monthDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ageDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedAge = ageDropdown.getSelectedItem().toString();
-                final String selectedMonth = monthDropdown.getSelectedItem().toString();
-                final String selectedYear = yearDropdown.getSelectedItem().toString();
+                ageItem = ageDropdown.getSelectedItem().toString();
+
+                if (ageItem.equals("Bal")) {
+                    selectedAge = "balFinish";
+                }
+                if (ageItem.equals("Kishore")) {
+                    selectedAge = "kishoreFinish";
+                }
+                if (ageItem.equals("Tarun")) {
+                    selectedAge = "tarunFinish";
+                }
+                if (ageItem.equals("Yuva")) {
+                    selectedAge = "yuvaFinish";
+                }
+                if (ageItem.equals("Proudh")) {
+                    selectedAge = "proudhFinish";
+                }
+                if (ageItem.equals("Anya")) {
+                    selectedAge = "anyaFinish";
+                }
+                if (ageItem.equals("Total")) {
+                    selectedAge = "totalFinish";
+                }
+
+                //Calculate monthYear depending on which value is chosen from timestamp
+                timestampedDates.clear();
+                valuesArray.clear();
+                datesArray.clear();
+                calculateTimestamp(timestampDropdown.getSelectedItem().toString());
                 DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
-                sankhyaReference.orderByChild("monthYear").equalTo(selectedMonth + selectedYear).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(!selectedMonth.equals("") && !selectedYear.equals("")){
-                            matchSankhyaDate(dataSnapshot);
-                        }
-                        else {
-                            array.clear();
-                        }
-                    }
+                for(String object: timestampedDates){
+                    sankhyaReference.orderByChild("monthYear").equalTo(object).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                            if (!timestampDropdown.getSelectedItem().toString().equals("") && !ageDropdown.getSelectedItem().toString().equals("")) {
+                                matchSankhyaDate(dataSnapshot);
+                            } else {
+                                timestampedDates.clear();
+                                valuesArray.clear();
+                                datesArray.clear();
+                            }
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
+
         //This automatically adds the monthYear value as soon as it has been selected in the dropdown for Month
-        yearDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        timestampDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedAge = ageDropdown.getSelectedItem().toString();
-                final String selectedMonth = monthDropdown.getSelectedItem().toString();
-                final String selectedYear = yearDropdown.getSelectedItem().toString();
+                //Calculate monthYear depending on which value is chosen from timestamp
+                timestampedDates.clear();
+                valuesArray.clear();
+                datesArray.clear();
+                calculateTimestamp(timestampDropdown.getSelectedItem().toString());
                 DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
-                sankhyaReference.orderByChild("monthYear").equalTo(selectedMonth + selectedYear).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(!selectedMonth.equals("") && !selectedYear.equals("")){
-                            matchSankhyaDate(dataSnapshot);
-                        }
-                        else {
-                            array.clear();
-                        }
-                    }
+                for(String object: timestampedDates){
+                    sankhyaReference.orderByChild("monthYear").equalTo(object).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                            if (!timestampDropdown.getSelectedItem().toString().equals("") && !ageDropdown.getSelectedItem().toString().equals("")) {
+                                matchSankhyaDate(dataSnapshot);
+                            } else {
+                                timestampedDates.clear();
+                                valuesArray.clear();
+                                datesArray.clear();
+                            }
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
+
         });
-
-                //DatabaseReference sankhyaRef;
-                //sankhyaRef = FirebaseDatabase.getInstance().getReference();
-                //for (int counter = 0; counter < array.size(); counter ++){
-                    //sankhyaRef.child("Sankhya").child(array.get(counter)).child("totalFinish").addValueEventListener(new ValueEventListener() {
-
-
-
-
-
 
         btnGenerateMonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Years found = ", String.valueOf(array));
-                Log.d("totalFinish", String.valueOf(totalFinishArray));
-
-
-                //Log.d("null for ", s.getKey());
-
-                //-----------------------------------------------------------------
-
-
+                Log.d("Timeframes", String.valueOf(timestampedDates));
+                Log.d("Dates found = ", String.valueOf(datesArray));
+                Log.d("Values found = ", String.valueOf(valuesArray));
             }
         });
-    return v;
+        return v;
 
 
     }
 
-    //This function matches the month and year, and puts all values which match the date key in an array
-    ArrayList<String> array = new ArrayList<>();
-    public void matchSankhyaDate(DataSnapshot dataSnapshot){
-        for (DataSnapshot s: dataSnapshot.getChildren()) {
-            array.add(s.getKey());
+    //This function matches the month and year, and passes the key to checkValue function
+    ArrayList<String> datesArray = new ArrayList<>();
+
+    public void matchSankhyaDate(DataSnapshot dataSnapshot) {
+        for (DataSnapshot s : dataSnapshot.getChildren()) {
+            checkValue(s.getKey());
+            datesArray.add(s.getKey());
         }
 
     }
-    //This function matches the date, and retrieves the totalFinish value for the corresponding date
-    ArrayList<String> totalFinishArray = new ArrayList<>();
-    public void matchSankhya(DataSnapshot dataSnapshot){
-        totalFinishArray.add(dataSnapshot.getValue().toString());
+
+    //This function checks the values for totalFinish for every date that is found
+    ArrayList<String> valuesArray = new ArrayList<>();
+
+    public void checkValue(String s) {
+        DatabaseReference sankhyaRef;
+        sankhyaRef = FirebaseDatabase.getInstance().getReference();
+        sankhyaRef.child("Sankhya").child(s).child(selectedAge).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                valuesArray.add(dataSnapshot.getValue().toString());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
+    public void calculateTimestamp(String sTimeStamp) {
+        if (sTimeStamp.equals("Past 3 months")) {
+            Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            for (int i = 3; i > 0; i--) {
+                if (month == 0) {
+                    month = 11;
+                    year = year - 1;
+                    timestampedDates.add("12" + String.valueOf(year));
+                } else {
+                    int monthLength = Integer.toString(month).length();
+                    if (monthLength == 1) {
+                        String monthYear = "0" + String.valueOf(month) + String.valueOf(year);
+                        timestampedDates.add(monthYear);
+                    } else {
+                        String monthYear = String.valueOf(month) + String.valueOf(year);
+                        timestampedDates.add(monthYear);
+                    }
+                    month = month - 1;
+                }
+            }
+            Collections.reverse(timestampedDates);
+            Log.d("3 months, Timestamp: ", String.valueOf(timestampedDates));
+        }
+            if (sTimeStamp.equals("Past 6 months")) {
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                for (int i = 6; i > 0; i--) {
+                    if (month == 0) {
+                        month = 11;
+                        year = year - 1;
+                        timestampedDates.add("12" + String.valueOf(year));
+                    } else {
+                        int monthLength = Integer.toString(month).length();
+                        if (monthLength == 1) {
+                            String monthYear = "0" + String.valueOf(month) + String.valueOf(year);
+                            timestampedDates.add(monthYear);
+                        } else {
+                            String monthYear = String.valueOf(month) + String.valueOf(year);
+                            timestampedDates.add(monthYear);
+                        }
+                        month = month - 1;
+                    }
+                }
+                Collections.reverse(timestampedDates);
+                Log.d("6 months, Timestamps: ", String.valueOf(timestampedDates));
+            }
+            if (sTimeStamp.equals("Past 9 months")) {
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                for (int i = 9; i > 0; i--) {
+                    if (month == 0) {
+                        month = 11;
+                        year = year - 1;
+                        timestampedDates.add("12" + String.valueOf(year));
+                    } else {
+                        int monthLength = Integer.toString(month).length();
+                        if (monthLength == 1) {
+                            String monthYear = "0" + String.valueOf(month) + String.valueOf(year);
+                            timestampedDates.add(monthYear);
+                        } else {
+                            String monthYear = String.valueOf(month) + String.valueOf(year);
+                            timestampedDates.add(monthYear);
+                        }
+                        month = month - 1;
+                    }
+                }
+                Collections.reverse(timestampedDates);
+                Log.d("9 months, Timestamps: ", String.valueOf(timestampedDates));
+            }
+            if (sTimeStamp.equals("Past year")) {
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                for (int i = 12; i > 0; i--) {
+                    if (month == 0) {
+                        month = 11;
+                        year = year - 1;
+                        timestampedDates.add("12" + String.valueOf(year));
+                    } else {
+                        int monthLength = Integer.toString(month).length();
+                        if (monthLength == 1) {
+                            String monthYear = "0" + String.valueOf(month) + String.valueOf(year);
+                            timestampedDates.add(monthYear);
+                        } else {
+                            String monthYear = String.valueOf(month) + String.valueOf(year);
+                            timestampedDates.add(monthYear);
+                        }
+                        month = month - 1;
+                    }
+                }
+                Collections.reverse(timestampedDates);
+                Log.d("12 months, Timestamps: ", String.valueOf(timestampedDates));
+            }
+            if (sTimeStamp.equals("All time")) {
+
+            }
 
 
-}
+        }
+
+
+    }
+

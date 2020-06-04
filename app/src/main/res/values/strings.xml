@@ -11,29 +11,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="Ages">
-        <item> Bal </item>
-        <item> Kishore </item>
-        <item> Tarun </item>
-        <item> Yuva </item>
-        <item> Proudh </item>
-        <item> Anya </item>
-        <item> Total </item>
-        <item> All </item>
+        <item>Bal</item>
+        <item>Kishore</item>
+        <item>Tarun</item>
+        <item>Yuva</item>
+        <item>Proudh</item>
+        <item>Anya</item>
+        <item>Total</item>
+        <item>All</item>
     </string-array>
-    <string-array name="Month">
-        <item></item>
-        <item> 01 </item>
-        <item> 02 </item>
-        <item> 03 </item>
-        <item> 04 </item>
-        <item> 05 </item>
-        <item> 06 </item>
-        <item> 07 </item>
-        <item> 08 </item>
-        <item> 09 </item>
-        <item> 10 </item>
-        <item> 11 </item>
-        <item> 12 </item>
+    <string-array name="Timestamp">
+        <item> Past 3 months </item>
+        <item> Past 6 months </item>
+        <item> Past 9 months </item>
+        <item> Past year </item>
+        <item> All time </item>
     </string-array>
     <string-array name="Year">
         <item></item>

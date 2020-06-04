@@ -25,7 +25,7 @@
                 android:layout_marginTop="5dp"
                 >
             <Spinner
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/ageDropdown"
             android:layout_marginTop="25dp"
@@ -76,37 +76,15 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/lblMonth"
-                    style="@style/fontForLabels"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="105dp"
-                    android:text="Month"
-                    android:textStyle="bold" />
+
 
                 <Spinner
-                    android:id="@+id/monthDropdown"
-                    android:layout_width="100dp"
+                    android:id="@+id/timestampDropdown"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="105dp"
                     android:textAlignment="textStart"></Spinner>
 
-                <TextView
-                    android:id="@+id/lblYear"
-                    style="@style/fontForLabels"
-                    android:layout_width="55dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="105dp"
-                    android:text="Year"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/yearDropdown"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="105dp"></Spinner>
             </LinearLayout>
 
             <LinearLayout

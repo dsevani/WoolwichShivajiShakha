@@ -103,14 +103,13 @@
                 android:id="@+id/DateField"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="30dp"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 style="@style/fontForLabels"
                 android:enabled="false"
                 android:textAlignment="center"
                 android:background="@drawable/bg_field"
                 android:layout_weight="1.5"
-                android:hint="--/--/----"
                 android:textColorHint="@android:color/holo_orange_dark"
                 />
 

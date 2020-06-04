@@ -648,8 +648,9 @@ public class AddEditSankhya extends Fragment {
         ktyShareerikValue = ktyShareerik.getText().toString();
         commentsValue = comments.getText().toString();
         subashitaValue = subashita.getText().toString();
-        String year = shakhaDate.getText().toString().substring(Math.max(shakhaDate.getText().toString().length() - 4, 0));
-        String month = shakhaDate.getText().toString().substring(3,5);
+        String year = shakhaDate.getText().toString().substring(0, 4);
+        String month = shakhaDate.getText().toString().substring(5,7);
+        String day = shakhaDate.getText().toString().substring(8,10);
         monthyear = month + year;
 
         if(firstaid.isChecked()){
@@ -808,8 +809,9 @@ public class AddEditSankhya extends Fragment {
         else{
             boolFirstAid = false;
         }
-        String year = shakhaDate.getText().toString().substring(Math.max(shakhaDate.getText().toString().length() - 4, 0));
-        String month = shakhaDate.getText().toString().substring(3,5);
+        String year = shakhaDate.getText().toString().substring(0, 4);
+        String month = shakhaDate.getText().toString().substring(5,7);
+        String day = shakhaDate.getText().toString().substring(8,10);
         monthyear = month + year;
 
 
@@ -867,7 +869,7 @@ public class AddEditSankhya extends Fragment {
         riskassessment.setText("");
         subashita.setText("");
         firstaid.setChecked(false);
-        shakhaDate.setText("--/--/----");
+        shakhaDate.setText("");
     }
 
 }

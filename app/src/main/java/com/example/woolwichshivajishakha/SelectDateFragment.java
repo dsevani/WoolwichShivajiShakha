@@ -35,13 +35,14 @@ public class SelectDateFragment extends DialogFragment implements DatePickerDial
         int monthLength = String.valueOf(month).length();
 
         if ((dayLength == 1) && (monthLength ==1)){
-            shakhaDate.setText("0" + day + "-" + "0" + month + "-" + year);
+            shakhaDate.setText(year + "-" + "0" + month + "-" + "0" + day);
         }
         else if ((dayLength == 1) && (monthLength == 2)){
-            shakhaDate.setText("0" + day + "-" + month + "-" + year);
+            shakhaDate.setText(year + "-" + month + "-" + "0" + day);
+
         }
         else if ((dayLength == 2) && (monthLength == 1)){
-            shakhaDate.setText(day + "-" + "0" + month + "-" + year);
+            shakhaDate.setText(year + "-" + "0" + month + "-" + day);
         }
 
 

@@ -19,7 +19,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:hint="Search: DD-MM-YYYY"
+            android:hint="Search: YYYY-MM-DD"
             android:id="@+id/searchSankhyaFilter"/>
 
             <ListView

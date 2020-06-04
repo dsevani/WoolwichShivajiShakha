@@ -56,6 +56,7 @@ public class SearchSankhya extends Fragment {
 
 
 
+
         arrayAdapter = new ArrayAdapter<String>(getContext(),R.layout.row_layout_delete,sankhyaDateArray);
         sankhyaList.setAdapter(arrayAdapter);
 
