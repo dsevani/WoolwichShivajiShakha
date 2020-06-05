@@ -107,12 +107,14 @@
 
             </LinearLayout>
 
-            <com.jjoe64.graphview.GraphView
+            <com.github.mikephil.charting.charts.LineChart
                 android:visibility="visible"
                 android:layout_marginTop="190dp"
+                android:layout_marginBottom="100dp"
                 android:layout_width="match_parent"
-                android:layout_height="250dip"
-                android:id="@+id/monitorGraphView"/>
+                android:layout_height="300dip"
+                android:id="@+id/monitorGraphView"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"/>
 
         </RelativeLayout>
     </ScrollView>

@@ -1,8 +1,11 @@
 package com.example.woolwichshivajishakha;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +22,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.woolwichshivajishakha.Model.Sankhya;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,12 +41,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.LabelFormatter;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -50,21 +68,29 @@ public class MonitorSankhya extends Fragment {
     String ageItem = "";
     Spinner ageDropdown, timestampDropdown;
     ArrayList<String> timestampedDates = new ArrayList<>();
+    private LineChart linechart;
 
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final
+    Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_monitor_sankhya, container, false);
 
         btnGenerateMonitor = (Button) v.findViewById(R.id.btnGenerateMonitor);
-        sankhyaMonitorGraph = (GraphView) v.findViewById(R.id.monitorGraphView);
-        sankhyaMonitorGraph.getViewport().setScalable(true);  // activate horizontal zooming and scrolling
-        sankhyaMonitorGraph.getViewport().setScrollable(true);  // activate horizontal scrolling
-        sankhyaMonitorGraph.getViewport().setScalableY(true);  // activate horizontal and vertical zooming and scrolling
-        sankhyaMonitorGraph.getViewport().setScrollableY(true);  // activate vertical scrolling
+        linechart = (LineChart) v.findViewById(R.id.monitorGraphView);
+
+
+
+
+        //sankhyaMonitorGraph.getViewport().setScalable(true);  // activate horizontal zooming and scrolling
+        //sankhyaMonitorGraph.getViewport().setScrollable(true);  // activate horizontal scrolling
+        //sankhyaMonitorGraph.getViewport().setScalableY(true);  // activate horizontal and vertical zooming and scrolling
+        //sankhyaMonitorGraph.getViewport().setScrollableY(true);  // activate vertical scrolling
+        //GridLabelRenderer renderer = sankhyaMonitorGraph.getGridLabelRenderer();
+        //renderer.setHorizontalAxisTitle("Date");
+        //renderer.setVerticalAxisTitle("Sankhya");
 
         //Create spinner object and dropdown for sampat lines
         final Spinner ageDropdown = (Spinner) v.findViewById(R.id.ageDropdown);
@@ -74,7 +100,7 @@ public class MonitorSankhya extends Fragment {
 
         //Create spinner object and dropdown for month
         final Spinner timestampDropdown = (Spinner) v.findViewById(R.id.timestampDropdown);
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Timestamp));
+        final ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Timestamp));
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         timestampDropdown.setAdapter(monthAdapter);
 
@@ -184,44 +210,62 @@ public class MonitorSankhya extends Fragment {
         btnGenerateMonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //sankhyaMonitorGraph.removeAllSeries();
                 Log.d("Timeframes", String.valueOf(timestampedDates));
                 Log.d("Dates found = ", String.valueOf(datesArray));
                 Log.d("Values found = ", String.valueOf(valuesArray));
 
-                series = new LineGraphSeries<>(data());
-                sankhyaMonitorGraph.addSeries(series);
+                String[] strDates = datesArray.toArray(new String[0]);
+                float yValues[] = new float[valuesArray.size()];
 
-                sankhyaMonitorGraph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter()
-                {
-                    @Override
-                    public String formatLabel(double value, boolean isValueX) {
-                        if (isValueX){
-                            for(int i = 0; i<datesArray.size() ; i++){
-                                return datesArray.get(i);
+                for(int i = 0; i < valuesArray.size(); i++){
+                    yValues[i] = Float.parseFloat(valuesArray.get(i));
+                }
+
+                LineDataSet lds = new LineDataSet(graphValues(), "Sankhya");
+                ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+                dataSets.add(lds);
+                LineData lData = new LineData(dataSets);
+                linechart.setData(lData);
+                linechart.invalidate();
+                lds.setLineWidth(5);
+                lds.setDrawCircleHole(true);
+                lds.setValueTextSize(9);
+                XAxis xAxis = linechart.getXAxis();
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setDrawGridLines(false);
+                xAxis.setLabelRotationAngle(-45);
+                xAxis.setGranularityEnabled(true);
+
+
+                    xAxis.setValueFormatter(new IAxisValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            ArrayList<String> yearMonth = new ArrayList<>();
+                            for (String d : datesArray) {
+                                yearMonth.add(d.substring(0, 7));
                             }
-                        }
-                        return super.formatLabel(value, isValueX);
+                            Log.d("labels ", "1");
+                            if(value >=0) {
+                                return yearMonth.get((int) value);
+                            }
+                            return yearMonth.get((int)value - 1);
+
+
                     }
-                });
-
-
+                    });
             }
         });
         return v;
 
-
     }
 
-    public DataPoint[] data(){
-        int n = datesArray.size();
-        DataPoint[] values = new DataPoint[n];
-        for(int i = 0; i<n ; i++){
-            DataPoint v = new DataPoint(i, Integer.parseInt(valuesArray.get(i)));
-            values[i] = v;
+    public ArrayList<Entry> graphValues(){
+        ArrayList<Entry> gValues = new ArrayList<Entry>();
+        for (int i = 0; i < datesArray.size(); i++) {
+            gValues.add(new Entry(i, Integer.parseInt(valuesArray.get(i))));
         }
-
-        return values;
-
+        return gValues;
     }
 
     //This function matches the month and year, and passes the key to checkValue function
