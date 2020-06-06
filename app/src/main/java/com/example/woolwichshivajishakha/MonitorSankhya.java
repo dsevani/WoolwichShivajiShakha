@@ -3,6 +3,7 @@ package com.example.woolwichshivajishakha;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.woolwichshivajishakha.Model.Sankhya;
@@ -31,6 +33,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 import com.google.android.gms.common.util.Strings;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +71,7 @@ public class MonitorSankhya extends Fragment {
     String ageItem = "";
     Spinner ageDropdown, timestampDropdown;
     ArrayList<String> timestampedDates = new ArrayList<>();
+    ArrayList<String> yearMonth = new ArrayList<>();
     private LineChart linechart;
 
 
@@ -80,17 +84,9 @@ public class MonitorSankhya extends Fragment {
 
         btnGenerateMonitor = (Button) v.findViewById(R.id.btnGenerateMonitor);
         linechart = (LineChart) v.findViewById(R.id.monitorGraphView);
-
-
-
-
-        //sankhyaMonitorGraph.getViewport().setScalable(true);  // activate horizontal zooming and scrolling
-        //sankhyaMonitorGraph.getViewport().setScrollable(true);  // activate horizontal scrolling
-        //sankhyaMonitorGraph.getViewport().setScalableY(true);  // activate horizontal and vertical zooming and scrolling
-        //sankhyaMonitorGraph.getViewport().setScrollableY(true);  // activate vertical scrolling
-        //GridLabelRenderer renderer = sankhyaMonitorGraph.getGridLabelRenderer();
-        //renderer.setHorizontalAxisTitle("Date");
-        //renderer.setVerticalAxisTitle("Sankhya");
+        btnGenerateMonitor.setEnabled(false);
+        btnGenerateMonitor.setVisibility(View.INVISIBLE);
+        linechart.setNoDataText("");
 
         //Create spinner object and dropdown for sampat lines
         final Spinner ageDropdown = (Spinner) v.findViewById(R.id.ageDropdown);
@@ -109,7 +105,6 @@ public class MonitorSankhya extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ageItem = ageDropdown.getSelectedItem().toString();
-
                 if (ageItem.equals("Bal")) {
                     selectedAge = "balFinish";
                 }
@@ -164,40 +159,52 @@ public class MonitorSankhya extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        //This automatically adds the monthYear value as soon as it has been selected in the dropdown for Month
-        timestampDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //Calculate monthYear depending on which value is chosen from timestamp
                 timestampedDates.clear();
                 valuesArray.clear();
                 datesArray.clear();
-                calculateTimestamp(timestampDropdown.getSelectedItem().toString());
-                DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
-                for(String object: timestampedDates){
-                    sankhyaReference.orderByChild("monthYear").equalTo(object).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                selectedAge = "balFinish";
+            }
+        });
 
-                            if (!timestampDropdown.getSelectedItem().toString().equals("") && !ageDropdown.getSelectedItem().toString().equals("")) {
-                                matchSankhyaDate(dataSnapshot);
-                            } else {
-                                timestampedDates.clear();
-                                valuesArray.clear();
-                                datesArray.clear();
+
+        timestampDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0){
+                    btnGenerateMonitor.setEnabled(true);
+                    btnGenerateMonitor.setVisibility(View.VISIBLE);
+                    timestampedDates.clear();
+                    valuesArray.clear();
+                    datesArray.clear();
+                    calculateTimestamp(timestampDropdown.getSelectedItem().toString());
+                    DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
+                    for(String object: timestampedDates){
+                        sankhyaReference.orderByChild("monthYear").equalTo(object).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                if (!timestampDropdown.getSelectedItem().toString().equals("") && !ageDropdown.getSelectedItem().toString().equals("")) {
+                                    matchSankhyaDate(dataSnapshot);
+                                } else {
+                                    timestampedDates.clear();
+                                    valuesArray.clear();
+                                    datesArray.clear();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
-
+                            }
+                        });
+                    }
                 }
+                else{
+                    btnGenerateMonitor.setEnabled(false);
+                    btnGenerateMonitor.setVisibility(View.INVISIBLE);
+                }
+
 
             }
 
@@ -211,6 +218,8 @@ public class MonitorSankhya extends Fragment {
             @Override
             public void onClick(View view) {
                 //sankhyaMonitorGraph.removeAllSeries();
+                linechart.clear();
+                yearMonth.clear();
                 Log.d("Timeframes", String.valueOf(timestampedDates));
                 Log.d("Dates found = ", String.valueOf(datesArray));
                 Log.d("Values found = ", String.valueOf(valuesArray));
@@ -228,30 +237,47 @@ public class MonitorSankhya extends Fragment {
                 LineData lData = new LineData(dataSets);
                 linechart.setData(lData);
                 linechart.invalidate();
-                lds.setLineWidth(5);
+                lds.setLineWidth(2);
                 lds.setDrawCircleHole(true);
                 lds.setValueTextSize(9);
+                lds.setDrawIcons(false);
+                lds.setColor(Color.BLACK);
+                lds.setValueTextSize(9);
+                lds.setCircleColor(Color.BLACK);
+                lds.setCircleRadius(4f);
+                lds.setDrawFilled(true);
+
+                if (Utils.getSDKInt() >= 18) {
+                    Drawable drawable = ContextCompat.getDrawable(v.getContext(), R.drawable.fade_orange);
+                    lds.setFillDrawable(drawable);
+                }
+                else {
+                    lds.setFillColor(Color.BLACK);
+                }
+
                 XAxis xAxis = linechart.getXAxis();
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                 xAxis.setDrawGridLines(false);
                 xAxis.setLabelRotationAngle(-45);
                 xAxis.setGranularityEnabled(true);
-
+                YAxis rightAxis = linechart.getAxisRight();
+                rightAxis.setEnabled(false);
+                linechart.getDescription().setEnabled(false);
+                linechart.setTouchEnabled(true);
+                linechart.setPinchZoom(true);
+                linechart.getLegend().setEnabled(false);
+                linechart.setExtraBottomOffset(30);
 
                     xAxis.setValueFormatter(new IAxisValueFormatter() {
                         @Override
                         public String getFormattedValue(float value, AxisBase axis) {
-                            ArrayList<String> yearMonth = new ArrayList<>();
                             for (String d : datesArray) {
                                 yearMonth.add(d.substring(0, 7));
                             }
-                            Log.d("labels ", "1");
                             if(value >=0) {
                                 return yearMonth.get((int) value);
                             }
                             return yearMonth.get((int)value - 1);
-
-
                     }
                     });
             }
@@ -300,6 +326,9 @@ public class MonitorSankhya extends Fragment {
     }
 
     public void calculateTimestamp(String sTimeStamp) {
+        timestampedDates.clear();
+        valuesArray.clear();
+        datesArray.clear();
         if (sTimeStamp.equals("Past 3 months")) {
             Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
