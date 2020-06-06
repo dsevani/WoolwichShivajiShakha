@@ -123,14 +123,8 @@ public class MonitorSankhya extends Fragment {
                 if (ageItem.equals("Anya")) {
                     selectedAge = "anyaFinish";
                 }
-                if (ageItem.equals("Total")) {
-                    selectedAge = "totalFinish";
-                }
 
                 //Calculate monthYear depending on which value is chosen from timestamp
-                timestampedDates.clear();
-                valuesArray.clear();
-                datesArray.clear();
                 calculateTimestamp(timestampDropdown.getSelectedItem().toString());
                 DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
                 for(String object: timestampedDates){
@@ -171,12 +165,14 @@ public class MonitorSankhya extends Fragment {
         timestampDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 if(position > 0){
                     btnGenerateMonitor.setEnabled(true);
                     btnGenerateMonitor.setVisibility(View.VISIBLE);
                     timestampedDates.clear();
                     valuesArray.clear();
                     datesArray.clear();
+                    yearMonth.clear();
                     calculateTimestamp(timestampDropdown.getSelectedItem().toString());
                     DatabaseReference sankhyaReference = FirebaseDatabase.getInstance().getReference("Sankhya");
                     for(String object: timestampedDates){
@@ -200,9 +196,13 @@ public class MonitorSankhya extends Fragment {
                         });
                     }
                 }
-                else{
+                else {
                     btnGenerateMonitor.setEnabled(false);
                     btnGenerateMonitor.setVisibility(View.INVISIBLE);
+                    timestampedDates.clear();
+                    valuesArray.clear();
+                    datesArray.clear();
+                    yearMonth.clear();
                 }
 
 

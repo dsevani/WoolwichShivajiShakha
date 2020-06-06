@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -30,21 +31,20 @@ public class SelectDateFragment extends DialogFragment implements DatePickerDial
     }
 
     public void populateSetDate(int year, int month, int day) {
-                TextView shakhaDate = (TextView) getActivity().findViewById(R.id.DateField);
-                int dayLength = String.valueOf(day).length();
-        int monthLength = String.valueOf(month).length();
+        TextView shakhaDate = (TextView) getActivity().findViewById(R.id.DateField);
 
-        if ((dayLength == 1) && (monthLength ==1)){
-            shakhaDate.setText(year + "-" + "0" + month + "-" + "0" + day);
-        }
-        else if ((dayLength == 1) && (monthLength == 2)){
-            shakhaDate.setText(year + "-" + month + "-" + "0" + day);
-
-        }
-        else if ((dayLength == 2) && (monthLength == 1)){
-            shakhaDate.setText(year + "-" + "0" + month + "-" + day);
+        String strDay = String.valueOf(day);
+        if (strDay.length() == 1) {
+            strDay = "0" + strDay;
         }
 
+        String strMonth = String.valueOf(month);
+        if (strMonth.length() == 1) {
+            strMonth = "0" + strMonth;
+        }
+
+        String strYear = String.valueOf(year);
+        shakhaDate.setText(strYear + "-" + strMonth + "-" + strDay);
 
     }
 }

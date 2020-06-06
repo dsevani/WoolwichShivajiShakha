@@ -39,6 +39,10 @@ public class SankhyaActivity extends AppCompatActivity {
                     case R.id.navigation_monitorSankhya:
                         selectedFragment = new MonitorSankhya();
                         break;
+
+                    case R.id.navigation_reportSankhya:
+                        selectedFragment = new SankhyaReport();
+                        break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentFrame, selectedFragment).commit();
                 return true;

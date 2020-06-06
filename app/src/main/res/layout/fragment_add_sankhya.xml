@@ -103,7 +103,7 @@
                 android:id="@+id/DateField"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="30dp"
-                android:layout_width="75dp"
+                android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 style="@style/fontForLabels"
                 android:enabled="false"

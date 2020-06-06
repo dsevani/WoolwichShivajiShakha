@@ -13,5 +13,9 @@
         android:id="@+id/navigation_monitorSankhya"
         android:icon="@drawable/monitor"
         android:title="Monitor" />
+    <item
+        android:id="@+id/navigation_reportSankhya"
+        android:icon="@drawable/list"
+        android:title="Reports" />
 
 </menu>
