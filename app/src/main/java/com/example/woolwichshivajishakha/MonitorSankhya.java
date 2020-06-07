@@ -315,7 +315,6 @@ public class MonitorSankhya extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 valuesArray.add(dataSnapshot.getValue().toString());
-
             }
 
             @Override
